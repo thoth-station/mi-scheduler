@@ -17,7 +17,59 @@
 
 """This is the main script of the template project."""
 
+from typing import List, Optional
+
+import click
+from github import Github
+from thoth.common import OpenShift
+
 from template.version import __version__
 
+
+@click.command()
+@click.option(
+    "--repositories",
+    "-r",
+    type=str,
+    required=False,
+    help="Repositories to be analysed (e.g thoth-station/performance)",
+)
+@click.option(
+    "--organizations",
+    "-o",
+    type=str,
+    required=False,
+    help="All repositories of an Organization to be analysed (e.g. AICoE)",
+)
+
+def cli(
+    repositories: Optional[str],
+    organizations: Optional[str],
+):
+    """Command Line Interface for SrcOpsMetrics."""
+    gh = Github()
+
+    orgs = organizations.split(',')
+    repos = [repo.full_name for repo in gh.get_organization(org).get_repos() for org in orgs]
+
+    repos.extend(repositories.split(','))
+
+    schedule_repositories(repositories=repos)
+
+
+def schedule_repositories(repositories: List[str]) -> None:
+    """Schedule workflows for repositories.
+
+    Repositories are also gathered from all of the organizations passed.
+
+    :param organizations:str: List of organizations in string format: org1,org2,org3,...
+    :param repositories:str: List of repositories in string format: repo1,repo2,...
+    """
+    oc = OpenShift()
+    for repo in repositories:
+        oc.schedule_srcopsmetrics_workflow(repository=repo)
+
+
 if __name__ == "__main__":
-    print(f"A template project with Thoth integration, v{__version__}.")
+    print(f"mi-scheduler for scheduling mi workflows v{__version__}.")
+    cli()
