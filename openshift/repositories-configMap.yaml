@@ -19,14 +19,14 @@ parameters:
   - description: All of the repositories that are inspected by SrcOpsMetrics CronJob
     displayName: Repositories List
     required: true
-    name: REPOSITORIES
+    name: repositories
     value: "None"
 
   - description: All of the organizations that are inspected by SrcOpsMetrics CronJob
     displayName: Organizations List
     required: true
-    name: ORGANIZATIONS
-    value: thoth-station,AICoE
+    name: organizations
+    value: "thoth-station,AICoE"
 
 objects:
   - kind: ConfigMap
