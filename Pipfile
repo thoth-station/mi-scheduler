@@ -6,7 +6,7 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-thoth-common = "*"
+thoth-common = ">=0.13.13"
 
 [requires]
 python_version = "3.7"
