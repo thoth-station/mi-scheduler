@@ -47,8 +47,8 @@ def cli(
     organizations: Optional[str],
 ):
     """Command Line Interface for SrcOpsMetrics."""
-    repositories = [] if repositories is None else repositories
-    organizations = [] if organizations is None else organizations
+    repositories = '' if repositories is None else repositories
+    organizations = '' if organizations is None else organizations
 
     gh = Github()
 
