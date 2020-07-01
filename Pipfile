@@ -7,6 +7,7 @@ verify_ssl = true
 
 [packages]
 thoth-common = ">=0.13.13"
+click = "*"
 
 [requires]
 python_version = "3.7"
