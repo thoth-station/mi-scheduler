@@ -33,8 +33,7 @@ logging.basicConfig(level=logging.INFO)
 
 @click.command()
 @click.option(
-    "--repositories",
-    help="Repositories to be analysed (e.g thoth-station/performance)",
+    "--repositories", help="Repositories to be analysed (e.g thoth-station/performance)",
 )
 @click.option(
     "--organizations",
@@ -43,18 +42,16 @@ logging.basicConfig(level=logging.INFO)
     required=False,
     help="Organizations (all of their repositories) to be analysed (e.g. AICoE)",
 )
-
 def main(
-    repositories: Optional[str],
-    organizations: Optional[str],
+    repositories: Optional[str], organizations: Optional[str],
 ):
     """Command Line Interface for SrcOpsMetrics."""
-    repositories = '' if repositories is None else repositories
-    organizations = '' if organizations is None else organizations
+    repositories = "" if repositories is None else repositories
+    organizations = "" if organizations is None else organizations
 
     gh = Github()
 
-    orgs = organizations.split(',')
+    orgs = organizations.split(",")
 
     repos = []
     for org in orgs:
@@ -62,13 +59,13 @@ def main(
             gh_org = gh.get_organization(org)
             for repo in gh_org.get_repos():
                 if repo.archived:
-                    _LOGGER.info('repository %s is archived, therefore skipped' % repo.full_name)
+                    _LOGGER.info("repository %s is archived, therefore skipped" % repo.full_name)
                 else:
                     repos.append(repo.full_name)
         except GithubException:
-            _LOGGER.error('organization %s was not recognized by GitHub API' % org)
+            _LOGGER.error("organization %s was not recognized by GitHub API" % org)
 
-    repos.extend(repositories.split(','))
+    repos.extend(repositories.split(","))
 
     schedule_repositories(repositories=repos)
 
