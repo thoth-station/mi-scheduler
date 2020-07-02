@@ -60,9 +60,13 @@ def main(
     for org in orgs:
         try:
             gh_org = gh.get_organization(org)
-            repos.extend([repo.full_name for repo in gh_org.get_repos()])
+            for repo in gh_org.get_repos():
+                if repo.archived:
+                    _LOGGER.info('repository %s is archived, therefore skipped' % repo.full_name)
+                else:
+                    repos.append(repo.full_name)
         except GithubException:
-            _LOGGER.info('organization %s was not recognized by GitHub API' % org)
+            _LOGGER.error('organization %s was not recognized by GitHub API' % org)
 
     repos.extend(repositories.split(','))
 
