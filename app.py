@@ -53,7 +53,9 @@ def cli(
     gh = Github()
 
     orgs = organizations.split(',')
-    repos = [repo.full_name for repo in gh.get_organization(org).get_repos() for org in orgs]
+
+    for org in orgs:
+        repos = [repo.full_name for repo in gh.get_organization(org).get_repos()]
 
     repos.extend(repositories.split(','))
 
