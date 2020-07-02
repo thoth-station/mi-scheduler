@@ -20,18 +20,20 @@
 from typing import List, Optional
 
 import click
+import logging
 from github import Github
+from github.GithubException import GithubException
 from thoth.common import OpenShift
 
-from template.version import __version__
+from version import __version__, __title__
+
+_LOGGER = logging.getLogger(__title__)
+logging.basicConfig(level=logging.INFO)
 
 
 @click.command()
 @click.option(
     "--repositories",
-    "-r",
-    type=str,
-    required=False,
     help="Repositories to be analysed (e.g thoth-station/performance)",
 )
 @click.option(
@@ -39,10 +41,10 @@ from template.version import __version__
     "-o",
     type=str,
     required=False,
-    help="All repositories of an Organization to be analysed (e.g. AICoE)",
+    help="Organizations (all of their repositories) to be analysed (e.g. AICoE)",
 )
 
-def cli(
+def main(
     repositories: Optional[str],
     organizations: Optional[str],
 ):
@@ -54,8 +56,13 @@ def cli(
 
     orgs = organizations.split(',')
 
+    repos = []
     for org in orgs:
-        repos = [repo.full_name for repo in gh.get_organization(org).get_repos()]
+        try:
+            gh_org = gh.get_organization(org)
+            repos.extend([repo.full_name for repo in gh_org.get_repos()])
+        except GithubException:
+            _LOGGER.info('organization %s was not recognized by GitHub API' % org)
 
     repos.extend(repositories.split(','))
 
@@ -77,4 +84,4 @@ def schedule_repositories(repositories: List[str]) -> None:
 
 if __name__ == "__main__":
     print(f"mi-scheduler for scheduling mi workflows v{__version__}.")
-    cli()
+    main()
