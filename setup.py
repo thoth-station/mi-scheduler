@@ -4,7 +4,7 @@ import os
 
 
 def get_version():
-    with open(os.path.join('./', '__init__.py')) as f:
+    with open('version.py', 'r') as f:
         content = f.readlines()
 
     for line in content:
