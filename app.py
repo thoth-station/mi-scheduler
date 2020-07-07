@@ -59,11 +59,11 @@ def main(
             gh_org = gh.get_organization(org)
             for repo in gh_org.get_repos():
                 if repo.archived:
-                    _LOGGER.info("repository %s is archived, therefore skipped" % repo.full_name)
+                    _LOGGER.info("repository %s is archived, therefore skipped", repo.full_name)
                 else:
                     repos.add(repo.full_name)
         except GithubException:
-            _LOGGER.error("organization %s was not recognized by GitHub API" % org)
+            _LOGGER.error("organization %s was not recognized by GitHub API", org)
 
     repos.union(repositories.split(",") if repositories is not None else [])
 
