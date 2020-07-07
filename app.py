@@ -17,7 +17,7 @@
 
 """This is the main script of the template project."""
 
-from typing import List, Optional
+from typing import Optional, Set
 
 import click
 import logging
@@ -56,7 +56,7 @@ def main(
 
     orgs = organizations.split(",")
 
-    repos = []
+    repos = set()
     for org in orgs:
         try:
             gh_org = gh.get_organization(org)
@@ -64,16 +64,16 @@ def main(
                 if repo.archived:
                     _LOGGER.info("repository %s is archived, therefore skipped" % repo.full_name)
                 else:
-                    repos.append(repo.full_name)
+                    repos.add(repo.full_name)
         except GithubException:
             _LOGGER.error("organization %s was not recognized by GitHub API" % org)
 
-    repos.extend(repositories.split(","))
+    repos.union(repositories.split(","))
 
     schedule_repositories(repositories=repos)
 
 
-def schedule_repositories(repositories: List[str]) -> None:
+def schedule_repositories(repositories: Set[str]) -> None:
     """Schedule workflows for repositories.
 
     Repositories are also gathered from all of the organizations passed.
