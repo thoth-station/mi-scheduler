@@ -25,7 +25,9 @@ from github import Github
 from github.GithubException import GithubException
 from thoth.common import OpenShift
 
-from version import __version__, __title__
+
+__title__ = "mi-scheduler"
+__version__ = "0.1.0"
 
 _LOGGER = logging.getLogger(__title__)
 logging.basicConfig(level=logging.INFO)
