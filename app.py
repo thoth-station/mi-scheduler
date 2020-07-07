@@ -80,7 +80,8 @@ def schedule_repositories(repositories: Set[str]) -> None:
     """
     oc = OpenShift()
     for repo in repositories:
-        oc.schedule_srcopsmetrics(repository=repo)
+        workflow_id = oc.schedule_srcopsmetrics(repository=repo)
+        _LOGGER.info("Scheduled srcopsmetrics with id %r", workflow_id)
 
 
 if __name__ == "__main__":
