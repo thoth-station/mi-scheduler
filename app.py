@@ -25,12 +25,13 @@ from github import Github
 from github.GithubException import GithubException
 from thoth.common import OpenShift
 
+from thoth.common import init_logging
 
 __title__ = "mi-scheduler"
 __version__ = "0.1.0"
 
-_LOGGER = logging.getLogger(__title__)
-logging.basicConfig(level=logging.INFO)
+init_logging()
+_LOGGER = logging.getLogger()
 
 
 @click.command()
@@ -82,7 +83,7 @@ def schedule_repositories(repositories: List[str]) -> None:
     """
     oc = OpenShift()
     for repo in repositories:
-        oc.schedule_srcopsmetrics_workflow(repository=repo)
+        oc.schedule_srcopsmetrics(repository=repo)
 
 
 if __name__ == "__main__":
