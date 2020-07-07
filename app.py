@@ -27,11 +27,11 @@ from thoth.common import OpenShift
 
 from thoth.common import init_logging
 
-__title__ = "mi-scheduler"
+__title__ = "thoth.mi-scheduler"
 __version__ = "0.1.0"
 
 init_logging()
-_LOGGER = logging.getLogger()
+_LOGGER = logging.getLogger(__title__)
 
 
 @click.command()
@@ -49,12 +49,9 @@ def main(
     repositories: Optional[str], organizations: Optional[str],
 ):
     """Command Line Interface for SrcOpsMetrics."""
-    repositories = "" if repositories is None else repositories
-    organizations = "" if organizations is None else organizations
-
     gh = Github()
 
-    orgs = organizations.split(",")
+    orgs = organizations.split(",") if organizations is not None else []
 
     repos = set()
     for org in orgs:
@@ -68,7 +65,7 @@ def main(
         except GithubException:
             _LOGGER.error("organization %s was not recognized by GitHub API" % org)
 
-    repos.union(repositories.split(","))
+    repos.union(repositories.split(",") if repositories is not None else [])
 
     schedule_repositories(repositories=repos)
 
@@ -87,5 +84,5 @@ def schedule_repositories(repositories: Set[str]) -> None:
 
 
 if __name__ == "__main__":
-    _LOGGER.info("mi-scheduler for scheduling mi workflows v %s" % __version__)
+    _LOGGER.info("mi-scheduler for scheduling mi workflows v%s", __version__)
     main()
