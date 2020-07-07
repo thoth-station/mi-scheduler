@@ -84,5 +84,5 @@ def schedule_repositories(repositories: List[str]) -> None:
 
 
 if __name__ == "__main__":
-    print(f"mi-scheduler for scheduling mi workflows v{__version__}.")
+    _LOGGER.info("mi-scheduler for scheduling mi workflows v %s" % __version__)
     main()
