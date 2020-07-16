@@ -17,9 +17,8 @@
 
 """This is the main script of the template project."""
 
-from typing import Optional, Set
+from typing import Set
 
-import click
 import logging
 from github import Github
 from github.GithubException import GithubException
@@ -34,26 +33,18 @@ init_logging()
 _LOGGER = logging.getLogger(__title__)
 
 
-@click.command()
-@click.option(
-    "--repositories", help="Repositories to be analysed (e.g thoth-station/performance)",
-)
-@click.option(
-    "--organizations",
-    "-o",
-    type=str,
-    required=False,
-    help="Organizations (all of their repositories) to be analysed (e.g. AICoE)",
-)
-def main(
-    repositories: Optional[str], organizations: Optional[str],
-):
-    """Command Line Interface for SrcOpsMetrics."""
+def main():
+    """MI-Scheduler entrypoint."""
+    oc = OpenShift()
+    cm = oc.get_configmap(configmap_id="mi-scheduler", namespace="thoth-test-core")
+
+    organizations = cm.get("organizations", "")
+    repositories = cm.get("repositories", "")
+
     gh = Github()
+    repos = set()
 
     orgs = organizations.split(",") if organizations is not None else []
-
-    repos = set()
     for org in orgs:
         try:
             gh_org = gh.get_organization(org)
@@ -65,7 +56,15 @@ def main(
         except GithubException:
             _LOGGER.error("organization %s was not recognized by GitHub API", org)
 
-    repos.union(repositories.split(",") if repositories is not None else [])
+    repos_raw = repositories.split(",") if repositories is not None else []
+    for repo in repos_raw:
+        try:
+            if gh.get_repo(repo).archived:
+                _LOGGER.info("repository %s is archived, therefore skipped", repo.full_name)
+            else:
+                repos.add(repo)
+        except GithubException:
+            _LOGGER.error("Repository %s was not recognized by GitHub API", repo)
 
     schedule_repositories(repositories=repos)
 
@@ -75,7 +74,6 @@ def schedule_repositories(repositories: Set[str]) -> None:
 
     Repositories are also gathered from all of the organizations passed.
 
-    :param organizations:str: List of organizations in string format: org1,org2,org3,...
     :param repositories:str: List of repositories in string format: repo1,repo2,...
     """
     oc = OpenShift()
