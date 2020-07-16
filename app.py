@@ -17,7 +17,7 @@
 
 """This is the main script of the template project."""
 
-from typing import Optional, Set
+from typing import Set
 
 import logging
 from github import Github
@@ -34,12 +34,12 @@ _LOGGER = logging.getLogger(__title__)
 
 
 def main():
-    """Command Line Interface for SrcOpsMetrics."""
+    """MI-Scheduler entrypoint."""
     oc = OpenShift()
-    cm = oc.get_configmap(configmap_id='mi-scheduler', namespace='thoth-test-core')
+    cm = oc.get_configmap(configmap_id="mi-scheduler", namespace="thoth-test-core")
 
-    organizations = cm['ORGANIZATIONS']
-    repositories = cm['REPOSITORIES']
+    organizations = cm["ORGANIZATIONS"]
+    repositories = cm["REPOSITORIES"]
 
     gh = Github()
     repos = set()
@@ -74,8 +74,7 @@ def schedule_repositories(repositories: Set[str]) -> None:
 
     Repositories are also gathered from all of the organizations passed.
 
-    :param organizations:str: List of organizations in string format: org1,org2,org3,...
-    :param repositories:str: List of reposiget_configmaptories in string format: repo1,repo2,...
+    :param repositories:str: List of repositories in string format: repo1,repo2,...
     """
     oc = OpenShift()
     for repo in repositories:
