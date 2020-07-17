@@ -87,7 +87,7 @@ def schedule_repositories(repositories: Set[str]) -> None:
     """
     oc = OpenShift()
     for repo in repositories:
-        workflow_id = oc.schedule_srcopsmetrics(repository=repo)
+        workflow_id = oc.schedule_srcopsmetrics_workflow(repository=repo)  # TODO Rename in common to mi
         _LOGGER.info("Scheduled srcopsmetrics with id %r", workflow_id)
 
 
