@@ -17,11 +17,11 @@
 
 """This is the main script of the template project."""
 
-from typing import Set
+from typing import Set, List
 
 import logging
 from github import Github
-from github.GithubException import GithubException
+from github.GithubException import UnknownObjectException
 from thoth.common import OpenShift
 
 from thoth.common import init_logging
@@ -40,11 +40,13 @@ def main():
 
     organizations = cm["data"].get("organizations", "")
     repositories = cm["data"].get("repositories", "")
+    _LOGGER.info("Detected %s organizations from configMap for inspection", organizations)
+    _LOGGER.info("Detected %s repositories from configMap for inspection", repositories)
 
     gh = Github()
     repos = set()
 
-    orgs = organizations.split(",") if organizations is not None else []
+    orgs = list_data(organizations)
     for org in orgs:
         try:
             gh_org = gh.get_organization(org)
@@ -53,20 +55,27 @@ def main():
                     _LOGGER.info("repository %s is archived, therefore skipped", repo.full_name)
                 else:
                     repos.add(repo.full_name)
-        except GithubException:
+        except UnknownObjectException:
             _LOGGER.error("organization %s was not recognized by GitHub API", org)
 
-    repos_raw = repositories.split(",") if repositories is not None else []
+    repos_raw = list_data(repositories)
     for repo in repos_raw:
         try:
             if gh.get_repo(repo).archived:
                 _LOGGER.info("repository %s is archived, therefore skipped", repo.full_name)
             else:
                 repos.add(repo)
-        except GithubException:
+        except UnknownObjectException:
             _LOGGER.error("Repository %s was not recognized by GitHub API", repo)
 
     schedule_repositories(repositories=repos)
+
+
+def list_data(str_list: str) -> List[str]:
+    """Make list out of the string acquired from configMap."""
+    if str_list is not None and str_list != "":
+        return str_list.split(",")
+    return []
 
 
 def schedule_repositories(repositories: Set[str]) -> None:
