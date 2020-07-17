@@ -27,7 +27,7 @@ from thoth.common import OpenShift
 from thoth.common import init_logging
 
 __title__ = "thoth.mi-scheduler"
-__version__ = "1.0.3"
+__version__ = "1.0.2"
 
 init_logging()
 _LOGGER = logging.getLogger(__title__)
@@ -87,7 +87,7 @@ def schedule_repositories(repositories: Set[str]) -> None:
     """
     oc = OpenShift()
     for repo in repositories:
-        workflow_id = oc.schedule_srcopsmetrics(repository=repo)
+        workflow_id = oc.schedule_srcopsmetrics_workflow(repository=repo)  # TODO Rename in common to mi
         _LOGGER.info("Scheduled srcopsmetrics with id %r", workflow_id)
 
 
