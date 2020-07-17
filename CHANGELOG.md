@@ -23,3 +23,6 @@
 
 ## Release 1.0.3 (2020-07-17T11:53:08)
 * Secure empty string lists and add logger for CM (#25)
+
+## Release 1.0.4 (2020-07-17T13:17:50)
+* Rename to match method in thoth.common (#29)
