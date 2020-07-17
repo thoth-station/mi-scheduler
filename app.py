@@ -38,8 +38,8 @@ def main():
     oc = OpenShift()
     cm = oc.get_configmap(configmap_id="mi-scheduler", namespace="thoth-test-core")
 
-    organizations = cm.get("organizations", "")
-    repositories = cm.get("repositories", "")
+    organizations = cm["data"].get("organizations", "")
+    repositories = cm["data"].get("repositories", "")
 
     gh = Github()
     repos = set()
