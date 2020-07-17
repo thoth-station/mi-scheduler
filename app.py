@@ -21,7 +21,7 @@ from typing import Set, List
 
 import logging
 from github import Github
-from github.GithubException import GithubException
+from github.GithubException import UnknownObjectException
 from thoth.common import OpenShift
 
 from thoth.common import init_logging
@@ -55,7 +55,7 @@ def main():
                     _LOGGER.info("repository %s is archived, therefore skipped", repo.full_name)
                 else:
                     repos.add(repo.full_name)
-        except GithubException:
+        except UnknownObjectException:
             _LOGGER.error("organization %s was not recognized by GitHub API", org)
 
     repos_raw = list_data(repositories)
@@ -65,7 +65,7 @@ def main():
                 _LOGGER.info("repository %s is archived, therefore skipped", repo.full_name)
             else:
                 repos.add(repo)
-        except GithubException:
+        except UnknownObjectException:
             _LOGGER.error("Repository %s was not recognized by GitHub API", repo)
 
     schedule_repositories(repositories=repos)
