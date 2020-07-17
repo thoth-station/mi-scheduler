@@ -17,3 +17,6 @@
 
 ## Release 1.0.1 (2020-07-17T01:27:09)
 * Required packages are locked
+
+## Release 1.0.2 (2020-07-17T09:25:07)
+* extract data from entire cm returned by get_configmap (#22)
