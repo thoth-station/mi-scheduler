@@ -14,3 +14,6 @@
 * update the maintainer for release of application
 * Remove CLI from mi-scheduler (#14)
 * :pushpin: Automatic update of dependency thoth-common from 0.14.1 to 0.14.2 (#16)
+
+## Release 1.0.1 (2020-07-17T01:27:09)
+* Required packages are locked
