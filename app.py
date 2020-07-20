@@ -18,7 +18,7 @@
 """This is the main script of the template project."""
 
 from typing import Set, List
-
+import os
 import logging
 from github import Github
 from github.GithubException import UnknownObjectException
@@ -31,6 +31,9 @@ __version__ = "1.0.4"
 
 init_logging()
 _LOGGER = logging.getLogger(__title__)
+
+THOTH_INFRA_NAMESPACE = os.getenv("THOTH_INFRA_NAMESPACE")
+THOTH_MIDDLETIER_NAMESPACE = os.getenv("THOTH_MIDDLETIER_NAMESPACE")
 
 
 def main():
@@ -85,7 +88,7 @@ def schedule_repositories(repositories: Set[str]) -> None:
 
     :param repositories:str: List of repositories in string format: repo1,repo2,...
     """
-    oc = OpenShift()
+    oc = OpenShift(infra_namespace=THOTH_INFRA_NAMESPACE, middletier_namespace=THOTH_MIDDLETIER_NAMESPACE)
     for repo in repositories:
         workflow_id = oc.schedule_srcopsmetrics_workflow(repository=repo)  # TODO Rename in common to mi
         _LOGGER.info("Scheduled srcopsmetrics with id %r", workflow_id)
