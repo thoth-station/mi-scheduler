@@ -26,3 +26,6 @@
 
 ## Release 1.0.4 (2020-07-17T13:17:50)
 * Rename to match method in thoth.common (#29)
+
+## Release 1.0.5 (2020-07-23T13:39:51)
+* get token from env variable (#35)
