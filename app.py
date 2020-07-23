@@ -20,6 +20,7 @@
 from typing import Set, List
 
 import logging
+import os
 from github import Github
 from github.GithubException import UnknownObjectException
 from thoth.common import OpenShift
@@ -32,6 +33,8 @@ __version__ = "1.0.4"
 init_logging()
 _LOGGER = logging.getLogger(__title__)
 
+GITHUB_ACCESS_TOKEN = os.getenv("GITHUB_ACCESS_TOKEN")
+
 
 def main():
     """MI-Scheduler entrypoint."""
@@ -43,7 +46,7 @@ def main():
     _LOGGER.info("Detected %s organizations from configMap for inspection", organizations)
     _LOGGER.info("Detected %s repositories from configMap for inspection", repositories)
 
-    gh = Github()
+    gh = Github(login_or_token=GITHUB_ACCESS_TOKEN)
     repos = set()
 
     orgs = list_data(organizations)
