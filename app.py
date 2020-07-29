@@ -90,7 +90,7 @@ def schedule_repositories(repositories: Set[str]) -> None:
     """
     oc = OpenShift()
     for repo in repositories:
-        workflow_id = oc.schedule_mi_workflow(repository=repo)  # TODO Rename in common to mi
+        workflow_id = oc.schedule_mi_workflow(repository=repo)
         _LOGGER.info("Scheduled mi with id %r", workflow_id)
 
 
