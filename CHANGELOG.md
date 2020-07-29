@@ -29,3 +29,7 @@
 
 ## Release 1.0.5 (2020-07-23T13:39:51)
 * get token from env variable (#35)
+
+## Release 1.0.6 (2020-07-29T14:57:32)
+* :pushpin: Automatic update of dependency thoth-common from 0.14.2 to 0.15.0 (#39)
+* Rename submit_srcopsmetrics_workflow to mi (#38)
