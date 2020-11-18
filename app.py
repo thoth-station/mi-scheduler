@@ -17,7 +17,7 @@
 
 """This is the main script of the template project."""
 
-from typing import Set, List
+from typing import Set
 
 import logging
 import os
@@ -40,7 +40,7 @@ def main():
     """MI-Scheduler entrypoint."""
     gh = Github(login_or_token=GITHUB_ACCESS_TOKEN)
 
-    repos_raw,orgs = Openshift().get_mi_repositories_and_organizations()
+    repos_raw, orgs = Openshift().get_mi_repositories_and_organizations()
     repos = set()
 
     for org in orgs:
@@ -64,13 +64,6 @@ def main():
             _LOGGER.error("Repository %s was not recognized by GitHub API", repo)
 
     schedule_repositories(repositories=repos)
-
-
-def list_data(str_list: str) -> List[str]:
-    """Make list out of the string acquired from configMap."""
-    if str_list is not None and str_list != "":
-        return str_list.split(",")
-    return []
 
 
 def schedule_repositories(repositories: Set[str]) -> None:
