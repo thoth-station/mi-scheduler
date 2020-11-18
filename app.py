@@ -40,7 +40,7 @@ def main():
     """MI-Scheduler entrypoint."""
     gh = Github(login_or_token=GITHUB_ACCESS_TOKEN)
 
-    repos_raw, orgs = Openshift().get_mi_repositories_and_organizations()
+    repos_raw, orgs = OpenShift().get_mi_repositories_and_organizations()
     repos = set()
 
     for org in orgs:
