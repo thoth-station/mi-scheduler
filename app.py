@@ -17,7 +17,7 @@
 
 """This is the main script of the template project."""
 
-from typing import Set, List
+from typing import Set
 
 import logging
 import os
@@ -38,18 +38,11 @@ GITHUB_ACCESS_TOKEN = os.getenv("GITHUB_ACCESS_TOKEN")
 
 def main():
     """MI-Scheduler entrypoint."""
-    oc = OpenShift()
-    cm = oc.get_configmap(configmap_id="mi-scheduler", namespace="thoth-test-core")
-
-    organizations = cm["data"].get("organizations", "")
-    repositories = cm["data"].get("repositories", "")
-    _LOGGER.info("Detected %s organizations from configMap for inspection", organizations)
-    _LOGGER.info("Detected %s repositories from configMap for inspection", repositories)
-
     gh = Github(login_or_token=GITHUB_ACCESS_TOKEN)
+
+    repos_raw, orgs = OpenShift().get_mi_repositories_and_organizations()
     repos = set()
 
-    orgs = list_data(organizations)
     for org in orgs:
         try:
             gh_org = gh.get_organization(org)
@@ -61,7 +54,6 @@ def main():
         except UnknownObjectException:
             _LOGGER.error("organization %s was not recognized by GitHub API", org)
 
-    repos_raw = list_data(repositories)
     for repo in repos_raw:
         try:
             if gh.get_repo(repo).archived:
@@ -72,13 +64,6 @@ def main():
             _LOGGER.error("Repository %s was not recognized by GitHub API", repo)
 
     schedule_repositories(repositories=repos)
-
-
-def list_data(str_list: str) -> List[str]:
-    """Make list out of the string acquired from configMap."""
-    if str_list is not None and str_list != "":
-        return str_list.split(",")
-    return []
 
 
 def schedule_repositories(repositories: Set[str]) -> None:
