@@ -11,4 +11,4 @@ thoth-common = ">=0.13.13"
 click = "*"
 
 [requires]
-python_version = "3.6"
+python_version = "3.8"
