@@ -95,7 +95,6 @@ class Schedule:
 
     def schedule_for_kebechet_analysis(self):
         """Schedule workflows for kebechet analysis."""
-        raise NotImplementedError  # TODO: implement schedule workflow in thoth.common
         for repo in self.github_repos:
             workflow_id = self.oc.schedule_mi_kebechet_workflow(repository=repo.full_name)
             _LOGGER.info("Scheduled mi-kebechet analysis with id %r", workflow_id)
@@ -110,9 +109,8 @@ def main():
     repos, orgs = oc.get_mi_repositories_and_organizations()
     Schedule(gh, orgs, repos).schedule_for_mi_analysis()
 
-    # TODO: uncomment whe schedule method implemented in thoth.common
-    # kebechet_repos = oc.get_mi_kebechet_repositories()
-    # Schedule(gh, repositories=kebechet_repos).schedule_for_kebechet_analysis(kebechet_repos)
+    kebechet_repos = oc.get_mi_kebechet_repositories()
+    Schedule(gh, repositories=kebechet_repos).schedule_for_kebechet_analysis(kebechet_repos)
 
 
 if __name__ == "__main__":
