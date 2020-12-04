@@ -27,8 +27,9 @@ from github.Repository import Repository
 
 from github.GithubException import UnknownObjectException
 from thoth.common import OpenShift
-
 from thoth.common import init_logging
+
+from thoth.storages import GraphDatabase
 
 __title__ = "thoth.mi-scheduler"
 __version__ = "1.0.7"
@@ -37,6 +38,8 @@ init_logging()
 _LOGGER = logging.getLogger(__title__)
 
 GITHUB_ACCESS_TOKEN = os.getenv("GITHUB_ACCESS_TOKEN")
+
+KEBECHET_ENTITIES = "KebechetUpdateManager,DependencyUpdate"
 
 
 class Schedule:
@@ -96,7 +99,7 @@ class Schedule:
     def schedule_for_kebechet_analysis(self):
         """Schedule workflows for kebechet analysis."""
         for repo in self.github_repos:
-            workflow_id = self.oc.schedule_mi_kebechet_workflow(repository=repo.full_name)
+            workflow_id = self.oc.schedule_mi_workflow(repository=repo.full_name, entities=KEBECHET_ENTITIES)
             _LOGGER.info("Scheduled mi-kebechet analysis with id %r", workflow_id)
 
 
@@ -109,8 +112,11 @@ def main():
     repos, orgs = oc.get_mi_repositories_and_organizations()
     Schedule(gh, orgs, repos).schedule_for_mi_analysis()
 
-    kebechet_repos = oc.get_mi_kebechet_repositories()
-    Schedule(gh, repositories=kebechet_repos).schedule_for_kebechet_analysis(kebechet_repos)
+    graph = GraphDatabase()
+    graph.connect()
+    kebechet_repos = graph.get_active_kebechet_github_installations_repos()
+    # TODO use the return value more efficiently to assign only active managers
+    Schedule(gh, repositories=[r for r in kebechet_repos.keys()]).schedule_for_kebechet_analysis(kebechet_repos)
 
 
 if __name__ == "__main__":
