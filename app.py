@@ -116,7 +116,7 @@ def main():
     graph.connect()
     kebechet_repos = graph.get_active_kebechet_github_installations_repos()
     # TODO use the return value more efficiently to assign only active managers
-    Schedule(gh, repositories=[r for r in kebechet_repos.keys()]).schedule_for_kebechet_analysis(kebechet_repos)
+    Schedule(gh, repositories=kebechet_repos).schedule_for_kebechet_analysis(kebechet_repos)
 
 
 if __name__ == "__main__":
