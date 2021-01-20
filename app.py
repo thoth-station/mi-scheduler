@@ -52,8 +52,6 @@ class Schedule:
         self.repos = repositories
         self.github_repos: Set[Repository] = set()
 
-        self.oc = OpenShift()
-
         self._initialize_repositories_from_organizations()
         self._initialize_repositories_from_raw()
 
@@ -93,13 +91,13 @@ class Schedule:
     def schedule_for_mi_analysis(self) -> None:
         """Schedule workflows for mi analysis."""
         for repo in self.github_repos:
-            workflow_id = self.oc.schedule_mi_workflow(repository=repo.full_name)
+            workflow_id = OpenShift().schedule_mi_workflow(repository=repo.full_name)
             _LOGGER.info("Scheduled mi with id %r", workflow_id)
 
     def schedule_for_kebechet_analysis(self):
         """Schedule workflows for kebechet analysis."""
         for repo in self.github_repos:
-            workflow_id = self.oc.schedule_mi_workflow(repository=repo.full_name, entities=KEBECHET_ENTITIES)
+            workflow_id = OpenShift().schedule_mi_workflow(repository=repo.full_name, entities=KEBECHET_ENTITIES)
             _LOGGER.info("Scheduled mi-kebechet analysis with id %r", workflow_id)
 
 
@@ -107,9 +105,7 @@ def main():
     """MI-Scheduler entrypoint."""
     gh = Github(login_or_token=GITHUB_ACCESS_TOKEN)
 
-    oc = OpenShift()
-
-    repos, orgs = oc.get_mi_repositories_and_organizations()
+    repos, orgs = OpenShift().get_mi_repositories_and_organizations()
     Schedule(gh, orgs, repos).schedule_for_mi_analysis()
 
     graph = GraphDatabase()
