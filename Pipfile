@@ -7,8 +7,9 @@ verify_ssl = true
 
 [packages]
 PyGithub = "*"
-thoth-common = ">=0.13.13"
+thoth-common = "*"
 click = "*"
+thoth-storages = "*"
 
 [requires]
 python_version = "3.8"
