@@ -32,7 +32,7 @@ from thoth.common import init_logging
 from thoth.storages import GraphDatabase
 
 __title__ = "thoth.mi-scheduler"
-__version__ = "1.0.7"
+__version__ = "1.1.0"
 
 init_logging()
 _LOGGER = logging.getLogger(__title__)
