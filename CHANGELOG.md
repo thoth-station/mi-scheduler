@@ -63,3 +63,20 @@
 * Log workflow id to track actions (#3)
 * Expand logged messages lazily (#2)
 * Add scheduler, configmap and pipfiles [8pt] (#1)
+
+## Release 1.1.0 (2021-01-21T09:33:31)
+### Features
+* :arrow_up: Automatic update of dependencies by kebechet. (#62)
+* Add kebechet schedule, implement class Schedule (#58)
+* :arrow_up: Automatic update of dependencies by kebechet. (#57)
+* update .aicoe-ci.yaml (#56)
+* update thoth yaml (#55)
+* port to python 38 (#54)
+* Add francesco as approver (#52)
+### Improvements
+* Remove and use utitilies that are now in openshift. (#51)
+### Automatic Updates
+* :pushpin: Automatic update of dependency thoth-common from 0.20.0 to 0.20.4 (#53)
+* :pushpin: Automatic update of dependency thoth-common from 0.16.1 to 0.20.0 (#49)
+* :pushpin: Automatic update of dependency thoth-common from 0.16.0 to 0.16.1 (#47)
+* :pushpin: Automatic update of dependency pygithub from 1.52 to 1.53 (#46)
