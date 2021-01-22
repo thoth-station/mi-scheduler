@@ -23,7 +23,6 @@ import logging
 import os
 
 from github import Github
-from github.Repository import Repository
 
 from github.GithubException import UnknownObjectException
 from thoth.common import OpenShift
@@ -50,7 +49,7 @@ class Schedule:
         self.gh = github
         self.orgs = organizations if organizations else []
         self.repos = repositories if repositories else []
-    
+
         self.checked_repos: Set[str] = set()
 
         self._initialize_repositories_from_organizations()
@@ -91,14 +90,14 @@ class Schedule:
 
     def schedule_for_mi_analysis(self) -> None:
         """Schedule workflows for mi analysis."""
-        for repo in self.github_repos:
-            workflow_id = OpenShift().schedule_mi_workflow(repository=repo.full_name)
+        for repo in self.checked_repos:
+            workflow_id = OpenShift().schedule_mi_workflow(repository=repo)
             _LOGGER.info("Scheduled mi with id %r", workflow_id)
 
     def schedule_for_kebechet_analysis(self):
         """Schedule workflows for kebechet analysis."""
-        for repo in self.github_repos:
-            workflow_id = OpenShift().schedule_mi_workflow(repository=repo.full_name, entities=KEBECHET_ENTITIES)
+        for repo in self.checked_repos:
+            workflow_id = OpenShift().schedule_mi_workflow(repository=repo, entities=KEBECHET_ENTITIES)
             _LOGGER.info("Scheduled mi-kebechet analysis with id %r", workflow_id)
 
 
