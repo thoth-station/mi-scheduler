@@ -23,7 +23,6 @@ import logging
 import os
 
 from github import Github
-from github.Repository import Repository
 
 from github.GithubException import UnknownObjectException
 from thoth.common import OpenShift
@@ -48,9 +47,10 @@ class Schedule:
     def __init__(self, github: Github, organizations: List[str] = None, repositories: List[str] = None):
         """Initialize with github, orgs and repos optional."""
         self.gh = github
-        self.orgs = organizations
-        self.repos = repositories
-        self.github_repos: Set[Repository] = set()
+        self.orgs = organizations if organizations else []
+        self.repos = repositories if repositories else []
+
+        self.checked_repos: Set[str] = set()
 
         self._initialize_repositories_from_organizations()
         self._initialize_repositories_from_raw()
@@ -68,7 +68,7 @@ class Schedule:
                     if repo.full_name in self.repos:
                         self.repos.remove(repo.full_name)
 
-                    self.github_repos.add(repo)
+                    self.checked_repos.add(repo.full_name)
 
             except UnknownObjectException:
                 _LOGGER.error("organization %s was not recognized by GitHub API", org)
@@ -83,21 +83,21 @@ class Schedule:
                     _LOGGER.info("repository %s is archived, therefore skipped", repo.full_name)
                     continue
 
-                self.github_repos.add(gh_repo)
+                self.checked_repos.add(gh_repo.full_name)
 
             except UnknownObjectException:
                 _LOGGER.error("Repository %s was not recognized by GitHub API", repo)
 
     def schedule_for_mi_analysis(self) -> None:
         """Schedule workflows for mi analysis."""
-        for repo in self.github_repos:
-            workflow_id = OpenShift().schedule_mi_workflow(repository=repo.full_name)
+        for repo in self.checked_repos:
+            workflow_id = OpenShift().schedule_mi_workflow(repository=repo)
             _LOGGER.info("Scheduled mi with id %r", workflow_id)
 
     def schedule_for_kebechet_analysis(self):
         """Schedule workflows for kebechet analysis."""
-        for repo in self.github_repos:
-            workflow_id = OpenShift().schedule_mi_workflow(repository=repo.full_name, entities=KEBECHET_ENTITIES)
+        for repo in self.checked_repos:
+            workflow_id = OpenShift().schedule_mi_workflow(repository=repo, entities=KEBECHET_ENTITIES)
             _LOGGER.info("Scheduled mi-kebechet analysis with id %r", workflow_id)
 
 
@@ -105,9 +105,11 @@ def main():
     """MI-Scheduler entrypoint."""
     gh = Github(login_or_token=GITHUB_ACCESS_TOKEN)
 
+    # regular mi schedule
     repos, orgs = OpenShift().get_mi_repositories_and_organizations()
-    Schedule(gh, orgs, repos).schedule_for_mi_analysis()
+    Schedule(gh, organizations=orgs, repositories=repos).schedule_for_mi_analysis()
 
+    # kebechet schedule
     graph = GraphDatabase()
     graph.connect()
     kebechet_repos = graph.get_active_kebechet_github_installations_repos()
