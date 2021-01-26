@@ -80,3 +80,7 @@
 * :pushpin: Automatic update of dependency thoth-common from 0.16.1 to 0.20.0 (#49)
 * :pushpin: Automatic update of dependency thoth-common from 0.16.0 to 0.16.1 (#47)
 * :pushpin: Automatic update of dependency pygithub from 1.52 to 1.53 (#46)
+
+## Release 1.1.1 (2021-01-26T14:12:30)
+### Features
+* :arrow_up: Automatic update of dependencies by kebechet. (#66)
