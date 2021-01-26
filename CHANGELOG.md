@@ -84,3 +84,7 @@
 ## Release 1.1.1 (2021-01-26T14:12:30)
 ### Features
 * :arrow_up: Automatic update of dependencies by kebechet. (#66)
+
+## Release 1.1.2 (2021-01-26T16:31:55)
+### Features
+* Change github objects in set to only strings (#67)
