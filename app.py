@@ -17,17 +17,14 @@
 
 """This is the main script of the template project."""
 
-from typing import Set, List
-
 import logging
 import os
+from pathlib import Path
+from typing import List, Set
 
 from github import Github
-
 from github.GithubException import UnknownObjectException
-from thoth.common import OpenShift
-from thoth.common import init_logging
-
+from thoth.common import OpenShift, init_logging
 from thoth.storages import GraphDatabase
 
 __title__ = "thoth.mi-scheduler"
@@ -44,9 +41,13 @@ KEBECHET_ENTITIES = "KebechetUpdateManager,DependencyUpdate"
 class Schedule:
     """Schedule class which handles repository and organization checks and schedule methods."""
 
-    def __init__(self, github: Github, organizations: List[str] = None, repositories: List[str] = None):
+    def __init__(
+        self, github: Github, openshift: OpenShift, organizations: List[str] = None, repositories: List[str] = None
+    ):
         """Initialize with github, orgs and repos optional."""
         self.gh = github
+        self.oc = openshift
+
         self.orgs = organizations if organizations else []
         self.repos = repositories if repositories else []
 
@@ -91,30 +92,36 @@ class Schedule:
     def schedule_for_mi_analysis(self) -> None:
         """Schedule workflows for mi analysis."""
         for repo in self.checked_repos:
-            workflow_id = OpenShift().schedule_mi_workflow(repository=repo)
+            workflow_id = self.oc.schedule_mi_workflow(repository=repo)
             _LOGGER.info("Scheduled mi with id %r", workflow_id)
 
     def schedule_for_kebechet_analysis(self):
         """Schedule workflows for kebechet analysis."""
+        deployment_name = self.oc.infra_namespace  # mi runs in infra (submit_mi() in workflows.py in common)
+        path = Path(f"{deployment_name}/thoth-sli-metrics/kebechet-update-manager/")
         for repo in self.checked_repos:
-            workflow_id = OpenShift().schedule_mi_workflow(repository=repo, entities=KEBECHET_ENTITIES)
+            repo_path = str(path.joinpath(repo))
+            workflow_id = self.oc.schedule_mi_workflow(
+                repository=repo, entities=KEBECHET_ENTITIES, knowledge_path=repo_path
+            )
             _LOGGER.info("Scheduled mi-kebechet analysis with id %r", workflow_id)
 
 
 def main():
     """MI-Scheduler entrypoint."""
     gh = Github(login_or_token=GITHUB_ACCESS_TOKEN)
+    oc = OpenShift()
 
     # regular mi schedule
-    repos, orgs = OpenShift().get_mi_repositories_and_organizations()
-    Schedule(gh, organizations=orgs, repositories=repos).schedule_for_mi_analysis()
+    repos, orgs = oc.get_mi_repositories_and_organizations()
+    Schedule(gh, oc, organizations=orgs, repositories=repos).schedule_for_mi_analysis()
 
     # kebechet schedule
     graph = GraphDatabase()
     graph.connect()
     kebechet_repos = graph.get_active_kebechet_github_installations_repos()
     # TODO use the return value more efficiently to assign only active managers
-    Schedule(gh, repositories=kebechet_repos).schedule_for_kebechet_analysis(kebechet_repos)
+    Schedule(gh, oc, repositories=kebechet_repos).schedule_for_kebechet_analysis(kebechet_repos)
 
 
 if __name__ == "__main__":
