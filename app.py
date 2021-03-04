@@ -37,8 +37,8 @@ GITHUB_ACCESS_TOKEN = os.getenv("GITHUB_ACCESS_TOKEN")
 
 KEBECHET_ENTITIES = "KebechetUpdateManager,DependencyUpdate"
 
-RUN_MI = os.getenv("RUN_MI", default="0")
-RUN_KEBECHET = os.getenv("RUN_KEBECHET", default="0")
+SCHEDULE_KEBECHET_ANALYSIS = os.getenv("SCHEDULE_KEBECHET_ANALYSIS", default="0")
+SCHEDULE_GH_REPO_ANALYSIS = os.getenv("SCHEDULE_GH_REPO_ANALYSIS", default="0")
 
 
 class Schedule:
@@ -116,12 +116,12 @@ def main():
     oc = OpenShift()
 
     # regular mi schedule
-    if RUN_MI == "1":
+    if SCHEDULE_GH_REPO_ANALYSIS == "1":
         repos, orgs = oc.get_mi_repositories_and_organizations()
         Schedule(gh, oc, organizations=orgs, repositories=repos).schedule_for_mi_analysis()
 
     # kebechet schedule
-    if RUN_KEBECHET == "1":
+    if SCHEDULE_KEBECHET_ANALYSIS == "1":
         graph = GraphDatabase()
         graph.connect()
         kebechet_repos = graph.get_active_kebechet_github_installations_repos()
