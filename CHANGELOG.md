@@ -88,3 +88,10 @@
 ## Release 1.1.2 (2021-01-26T16:31:55)
 ### Features
 * Change github objects in set to only strings (#67)
+
+## Release 1.2.0 (2021-03-04T12:54:16)
+### Features
+* :arrow_up: Automatic update of dependencies by Kebechet (#80)
+* Add custom path for kebechet inspection (#81)
+* :arrow_up: Automatic update of dependencies by Kebechet
+* :arrow_up: Automatic update of dependencies by Kebechet (#77)
