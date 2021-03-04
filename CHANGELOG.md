@@ -95,3 +95,7 @@
 * Add custom path for kebechet inspection (#81)
 * :arrow_up: Automatic update of dependencies by Kebechet
 * :arrow_up: Automatic update of dependencies by Kebechet (#77)
+
+## Release 1.3.0 (2021-03-04T15:05:08)
+### Features
+* Feature/kebechet mi options (#84)
