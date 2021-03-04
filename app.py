@@ -37,6 +37,9 @@ GITHUB_ACCESS_TOKEN = os.getenv("GITHUB_ACCESS_TOKEN")
 
 KEBECHET_ENTITIES = "KebechetUpdateManager,DependencyUpdate"
 
+RUN_MI = os.getenv("RUN_MI", default="0")
+RUN_KEBECHET = os.getenv("RUN_KEBECHET", default="0")
+
 
 class Schedule:
     """Schedule class which handles repository and organization checks and schedule methods."""
@@ -113,15 +116,17 @@ def main():
     oc = OpenShift()
 
     # regular mi schedule
-    repos, orgs = oc.get_mi_repositories_and_organizations()
-    Schedule(gh, oc, organizations=orgs, repositories=repos).schedule_for_mi_analysis()
+    if RUN_MI == "1":
+        repos, orgs = oc.get_mi_repositories_and_organizations()
+        Schedule(gh, oc, organizations=orgs, repositories=repos).schedule_for_mi_analysis()
 
     # kebechet schedule
-    graph = GraphDatabase()
-    graph.connect()
-    kebechet_repos = graph.get_active_kebechet_github_installations_repos()
-    # TODO use the return value more efficiently to assign only active managers
-    Schedule(gh, oc, repositories=kebechet_repos).schedule_for_kebechet_analysis(kebechet_repos)
+    if RUN_KEBECHET == "1":
+        graph = GraphDatabase()
+        graph.connect()
+        kebechet_repos = graph.get_active_kebechet_github_installations_repos()
+        # TODO use the return value more efficiently to assign only active managers
+        Schedule(gh, oc, repositories=kebechet_repos).schedule_for_kebechet_analysis(kebechet_repos)
 
 
 if __name__ == "__main__":
