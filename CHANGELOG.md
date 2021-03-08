@@ -99,3 +99,7 @@
 ## Release 1.3.0 (2021-03-04T15:05:08)
 ### Features
 * Feature/kebechet mi options (#84)
+
+## Release 1.3.1 (2021-03-08T12:25:29)
+### Improvements
+* Fix typo (#87)
