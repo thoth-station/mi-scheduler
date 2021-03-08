@@ -81,7 +81,7 @@ class Schedule:
         """Check repositories if exist and if not archived."""
         for repo in self.repos:
             try:
-                gh_repo = self.gh_get_repo(repo)
+                gh_repo = self.gh.get_repo(repo)
 
                 if gh_repo.archived:
                     _LOGGER.info("repository %s is archived, therefore skipped", repo.full_name)
