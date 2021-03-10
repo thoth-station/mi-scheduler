@@ -84,10 +84,10 @@ class Schedule:
                 gh_repo = self.gh.get_repo(repo)
 
                 if gh_repo.archived:
-                    _LOGGER.info("repository %s is archived, therefore skipped", repo.full_name)
+                    _LOGGER.info("repository %s is archived, therefore skipped", repo)
                     continue
 
-                self.checked_repos.add(gh_repo.full_name)
+                self.checked_repos.add(repo)
 
             except UnknownObjectException:
                 _LOGGER.error("Repository %s was not recognized by GitHub API", repo)
