@@ -1,4 +1,5 @@
 check:
+  - thoth-pytest38
   - thoth-precommit
   - thoth-build
 build:
