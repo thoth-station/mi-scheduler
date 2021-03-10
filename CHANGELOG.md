@@ -103,3 +103,11 @@
 ## Release 1.3.1 (2021-03-08T12:25:29)
 ### Improvements
 * Fix typo (#87)
+
+## Release 1.3.2 (2021-03-10T20:12:57)
+### Features
+* :arrow_up: Automatic update of dependencies by Kebechet (#94)
+* Use repo name correctly #repush
+* :arrow_up: Automatic update of dependencies by Kebechet (#91)
+### Improvements
+* Add pytest and .prow.yaml (#95)
