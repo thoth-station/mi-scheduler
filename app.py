@@ -28,7 +28,7 @@ from thoth.common import OpenShift, init_logging
 from thoth.storages import GraphDatabase
 
 __title__ = "thoth.mi-scheduler"
-__version__ = "1.3.1"
+__version__ = "1.3.2"
 
 init_logging()
 _LOGGER = logging.getLogger(__title__)
