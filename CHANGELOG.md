@@ -111,3 +111,7 @@
 * :arrow_up: Automatic update of dependencies by Kebechet (#91)
 ### Improvements
 * Add pytest and .prow.yaml (#95)
+
+## Release 1.3.3 (2021-03-12T13:10:56)
+### Improvements
+* Fix/schedule typo (#98)
