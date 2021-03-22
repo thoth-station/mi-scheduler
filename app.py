@@ -32,6 +32,7 @@ __version__ = "1.3.3"
 
 init_logging()
 _LOGGER = logging.getLogger(__title__)
+os.environ["THOTH_LOG_MI_SCHEDULER"] = "INFO"
 
 GITHUB_ACCESS_TOKEN = os.getenv("GITHUB_ACCESS_TOKEN")
 
