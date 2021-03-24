@@ -115,3 +115,8 @@
 ## Release 1.3.3 (2021-03-12T13:10:56)
 ### Improvements
 * Fix/schedule typo (#98)
+
+## Release 1.3.4 (2021-03-24T08:01:05)
+### Features
+* Add additional_configuration parameter to kebechet (#106)
+* :arrow_up: Automatic update of dependencies by Kebechet (#104)
