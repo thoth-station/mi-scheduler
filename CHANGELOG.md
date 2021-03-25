@@ -120,3 +120,7 @@
 ### Features
 * Add additional_configuration parameter to kebechet (#106)
 * :arrow_up: Automatic update of dependencies by Kebechet (#104)
+
+## Release 1.3.5 (2021-03-25T10:39:16)
+### Features
+* Change additional_configuration to mi_thoth flag (#110)
