@@ -128,3 +128,7 @@
 ## Release 1.3.6 (2021-03-26T11:14:37)
 ### Features
 * Fix parameter name to be consistent with common (#113)
+
+## Release 1.3.7 (2021-03-26T14:33:16)
+### Features
+* :arrow_up: Automatic update of dependencies by Kebechet (#118)
