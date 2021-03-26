@@ -124,3 +124,7 @@
 ## Release 1.3.5 (2021-03-25T10:39:16)
 ### Features
 * Change additional_configuration to mi_thoth flag (#110)
+
+## Release 1.3.6 (2021-03-26T11:14:37)
+### Features
+* Fix parameter name to be consistent with common (#113)
