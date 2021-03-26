@@ -105,7 +105,7 @@ class Schedule:
         for repo in self.checked_repos:
             repo_path = str(path.joinpath(repo))
             workflow_id = self.oc.schedule_mi_workflow(
-                repository=repo, entities=KEBECHET_ENTITIES, knowledge_path=repo_path, mi_thoth=True,
+                repository=repo, entities=KEBECHET_ENTITIES, knowledge_path=repo_path, mi_used_for_thoth=True,
             )
             _LOGGER.info("Scheduled mi-kebechet analysis with id %r", workflow_id)
 
