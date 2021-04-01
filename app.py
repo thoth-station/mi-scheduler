@@ -39,6 +39,7 @@ KEBECHET_ENTITIES = "KebechetUpdateManager,DependencyUpdate"
 
 SCHEDULE_KEBECHET_ANALYSIS = os.getenv("SCHEDULE_KEBECHET_ANALYSIS", default="0")
 SCHEDULE_GH_REPO_ANALYSIS = os.getenv("SCHEDULE_GH_REPO_ANALYSIS", default="0")
+SCHEDULE_IN_PIPELINE = os.getenv("SCHEDULE_GH_REPO_ANALYSIS", default="1")
 
 
 class Schedule:
@@ -58,6 +59,10 @@ class Schedule:
 
         self._initialize_repositories_from_organizations()
         self._initialize_repositories_from_raw()
+
+        if SCHEDULE_IN_PIPELINE == "1":
+            _LOGGER.info("Scheduling in one pipeline")
+            self.checked_repos = {(",").join(self.checked_repos)}
 
     def _initialize_repositories_from_organizations(self):
         """Check organizations if exist and acquire their repositories."""
