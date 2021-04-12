@@ -35,7 +35,7 @@ _LOGGER = logging.getLogger(__title__)
 
 GITHUB_ACCESS_TOKEN = os.getenv("GITHUB_ACCESS_TOKEN")
 
-KEBECHET_ENTITIES = "KebechetUpdateManager,DependencyUpdate"
+KEBECHET_ENTITIES = "PullRequest,Issue"
 
 SCHEDULE_KEBECHET_ANALYSIS = os.getenv("SCHEDULE_KEBECHET_ANALYSIS", default="0")
 SCHEDULE_GH_REPO_ANALYSIS = os.getenv("SCHEDULE_GH_REPO_ANALYSIS", default="0")
