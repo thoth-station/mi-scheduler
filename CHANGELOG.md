@@ -132,3 +132,11 @@
 ## Release 1.3.7 (2021-03-26T14:33:16)
 ### Features
 * :arrow_up: Automatic update of dependencies by Kebechet (#118)
+
+## Release 1.3.8 (2021-04-13T11:29:23)
+### Features
+* :arrow_up: Automatic update of dependencies by Kebechet (#127)
+* :arrow_up: Automatic update of dependencies by Kebechet (#125)
+* Remove codeowners file (#124)
+### Improvements
+* Make Kebechet entities inspection for PRs and Issues (#126)
