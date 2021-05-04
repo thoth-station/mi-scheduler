@@ -20,7 +20,7 @@
 import logging
 import os
 from pathlib import Path
-from typing import List, Set
+from typing import List, Set, Optional
 
 from github import Github
 from github.GithubException import UnknownObjectException
@@ -39,13 +39,18 @@ KEBECHET_ENTITIES = "KebechetUpdateManager,DependencyUpdate"
 
 SCHEDULE_KEBECHET_ANALYSIS = os.getenv("SCHEDULE_KEBECHET_ANALYSIS", default="0")
 SCHEDULE_GH_REPO_ANALYSIS = os.getenv("SCHEDULE_GH_REPO_ANALYSIS", default="0")
+SCHEDULE_KEBECHET_MERGE = os.getenv("SCHEDULE_KEBECHET_MERGE", default="0")
 
 
 class Schedule:
     """Schedule class which handles repository and organization checks and schedule methods."""
 
     def __init__(
-        self, github: Github, openshift: OpenShift, organizations: List[str] = None, repositories: List[str] = None
+        self,
+        openshift: OpenShift,
+        github: Optional[Github] = None,
+        organizations: List[str] = None,
+        repositories: List[str] = None,
     ):
         """Initialize with github, orgs and repos optional."""
         self.gh = github
@@ -103,11 +108,18 @@ class Schedule:
         deployment_name = self.oc.infra_namespace  # mi runs in infra (submit_mi() in workflows.py in common)
         path = Path(f"{deployment_name}/thoth-sli-metrics/kebechet-update-manager/")
         for repo in self.checked_repos:
-            repo_path = str(path.joinpath(repo))
             workflow_id = self.oc.schedule_mi_workflow(
-                repository=repo, entities=KEBECHET_ENTITIES, knowledge_path=repo_path, mi_used_for_thoth=True,
+                repository=repo, entities=KEBECHET_ENTITIES, knowledge_path=path, mi_used_for_thoth=True,
             )
             _LOGGER.info("Scheduled mi-kebechet analysis with id %r", workflow_id)
+
+    def schedule_for_kebechet_merge(self):
+        """Schedule workflows for kebechet analysis."""
+        deployment_name = self.oc.infra_namespace  # mi runs in infra (submit_mi() in workflows.py in common)
+        path = Path(f"{deployment_name}/thoth-sli-metrics/kebechet-update-manager/")
+
+        workflow_id = self.oc.schedule_mi_workflow(knowledge_path=path, mi_used_for_thoth=True, merge=True)
+        _LOGGER.info("Scheduled mi-kebechet merge with id %r", workflow_id)
 
 
 def main():
@@ -118,7 +130,7 @@ def main():
     # regular mi schedule
     if SCHEDULE_GH_REPO_ANALYSIS == "1":
         repos, orgs = oc.get_mi_repositories_and_organizations()
-        Schedule(gh, oc, organizations=orgs, repositories=repos).schedule_for_mi_analysis()
+        Schedule(github=gh, openshift=oc, organizations=orgs, repositories=repos).schedule_for_mi_analysis()
 
     # kebechet schedule
     if SCHEDULE_KEBECHET_ANALYSIS == "1":
@@ -126,7 +138,10 @@ def main():
         graph.connect()
         kebechet_repos = graph.get_active_kebechet_github_installations_repos()
         # TODO use the return value more efficiently to assign only active managers
-        Schedule(gh, oc, repositories=kebechet_repos).schedule_for_kebechet_analysis()
+        Schedule(github=gh, openshift=oc, repositories=kebechet_repos).schedule_for_kebechet_analysis()
+
+    if SCHEDULE_KEBECHET_MERGE == "1":
+        Schedule(openshift=oc).schedule_for_kebechet_merge()
 
 
 if __name__ == "__main__":
