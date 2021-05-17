@@ -140,3 +140,8 @@
 * Remove codeowners file (#124)
 ### Improvements
 * Make Kebechet entities inspection for PRs and Issues (#126)
+
+## Release 1.4.0 (2021-05-17T13:20:19)
+### Features
+* :arrow_up: Automatic update of dependencies by Kebechet (#132)
+* Add merge schedule, make arguments optional in Scheduler (#131)
