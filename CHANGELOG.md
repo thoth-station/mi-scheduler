@@ -145,3 +145,11 @@
 ### Features
 * :arrow_up: Automatic update of dependencies by Kebechet (#132)
 * Add merge schedule, make arguments optional in Scheduler (#131)
+
+## Release 1.5.0 (2021-06-01T14:45:08)
+### Features
+* Add description for cli flags
+* Use click envvar configuration instead of manual envvars
+* Update mypy version
+* Add mypy to dev packages
+* :hatched_chick: update the prow resource limits (#135)
