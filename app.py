@@ -122,13 +122,22 @@ class Schedule:
 
 @click.command()
 @click.option(
-    "--kebechet-analysis", is_flag=True, required=False,
+    "--kebechet-analysis",
+    is_flag=True,
+    required=False,
+    help="Flag for SCHEDULE_KEBECHET_ANALYSIS, used for scheduling mi workflows for kebechet repositories",
 )
 @click.option(
-    "--kebechet-merge", is_flag=True, required=False,
+    "--kebechet-merge",
+    is_flag=True,
+    required=False,
+    help="Flag for SCHEDULE_KEBECHET_MERGE, used for merging data collected from previous mi analysis",
 )
 @click.option(
-    "--gh-repo-analysis", is_flag=True, required=False,
+    "--gh-repo-analysis",
+    is_flag=True,
+    required=False,
+    help="Flag for SCHEDULE_GH_REPO_ANALYSIS, used for scheduling mi workflows for mi repositories",
 )
 def main(
     kebechet_analysis: Optional[bool], kebechet_merge: Optional[bool], gh_repo_analysis: Optional[bool],
