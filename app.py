@@ -22,6 +22,8 @@ import os
 from pathlib import Path
 from typing import List, Set, Optional
 
+import click
+
 from github import Github
 from github.GithubException import UnknownObjectException
 from thoth.common import OpenShift, init_logging
@@ -36,10 +38,6 @@ _LOGGER = logging.getLogger(__title__)
 GITHUB_ACCESS_TOKEN = os.getenv("GITHUB_ACCESS_TOKEN")
 
 KEBECHET_ENTITIES = "PullRequest,Issue"
-
-SCHEDULE_KEBECHET_ANALYSIS = os.getenv("SCHEDULE_KEBECHET_ANALYSIS", default="0")
-SCHEDULE_GH_REPO_ANALYSIS = os.getenv("SCHEDULE_GH_REPO_ANALYSIS", default="0")
-SCHEDULE_KEBECHET_MERGE = os.getenv("SCHEDULE_KEBECHET_MERGE", default="0")
 
 
 class Schedule:
@@ -122,28 +120,48 @@ class Schedule:
         _LOGGER.info("Scheduled mi-kebechet merge with id %r", workflow_id)
 
 
-def main():
+@click.command()
+@click.option(
+    "--kebechet-analysis",
+    is_flag=True,
+    required=False,
+    help="Flag for SCHEDULE_KEBECHET_ANALYSIS, used for scheduling mi workflows for kebechet repositories",
+)
+@click.option(
+    "--kebechet-merge",
+    is_flag=True,
+    required=False,
+    help="Flag for SCHEDULE_KEBECHET_MERGE, used for merging data collected from previous mi analysis",
+)
+@click.option(
+    "--gh-repo-analysis",
+    is_flag=True,
+    required=False,
+    help="Flag for SCHEDULE_GH_REPO_ANALYSIS, used for scheduling mi workflows for mi repositories",
+)
+def main(
+    kebechet_analysis: Optional[bool], kebechet_merge: Optional[bool], gh_repo_analysis: Optional[bool],
+):
     """MI-Scheduler entrypoint."""
     gh = Github(login_or_token=GITHUB_ACCESS_TOKEN)
     oc = OpenShift()
 
     # regular mi schedule
-    if SCHEDULE_GH_REPO_ANALYSIS == "1":
+    if gh_repo_analysis:
         repos, orgs = oc.get_mi_repositories_and_organizations()
         Schedule(github=gh, openshift=oc, organizations=orgs, repositories=repos).schedule_for_mi_analysis()
 
-    # kebechet schedule
-    if SCHEDULE_KEBECHET_ANALYSIS == "1":
+    if kebechet_analysis:
         graph = GraphDatabase()
         graph.connect()
         kebechet_repos = graph.get_active_kebechet_github_installations_repos()
         # TODO use the return value more efficiently to assign only active managers
         Schedule(github=gh, openshift=oc, repositories=kebechet_repos).schedule_for_kebechet_analysis()
 
-    if SCHEDULE_KEBECHET_MERGE == "1":
+    if kebechet_merge:
         Schedule(openshift=oc).schedule_for_kebechet_merge()
 
 
 if __name__ == "__main__":
     _LOGGER.info("mi-scheduler for scheduling mi workflows v%s", __version__)
-    main()
+    main(auto_envvar_prefix="SCHEDULE")
