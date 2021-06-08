@@ -8,9 +8,9 @@ repos:
   - repo: git://github.com/pre-commit/pre-commit-hooks
     rev: v2.0.0
     hooks:
-      # - id: trailing-whitespace
+      - id: trailing-whitespace
       - id: check-merge-conflict
-      # - id: end-of-file-fixer
+      - id: end-of-file-fixer
       - id: name-tests-test
       - id: check-added-large-files
       - id: check-byte-order-marker
