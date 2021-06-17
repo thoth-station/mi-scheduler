@@ -155,7 +155,6 @@ def main(
         graph = GraphDatabase()
         graph.connect()
         kebechet_repos = graph.get_active_kebechet_github_installations_repos()
-        # TODO use the return value more efficiently to assign only active managers
         Schedule(github=gh, openshift=oc, repositories=kebechet_repos).schedule_for_kebechet_analysis()
 
     if kebechet_merge:
