@@ -153,3 +153,16 @@
 * Update mypy version
 * Add mypy to dev packages
 * :hatched_chick: update the prow resource limits (#135)
+
+## Release 1.5.1 (2021-06-17T15:40:11)
+### Features
+* Change parameter merge to mi_merge
+* :arrow_up: Automatic update of dependencies by Kebechet
+* Move template to ISSUE_TEMPLATE directory
+* :arrow_up: Automatic update of dependencies by Kebechet
+* :arrow_up: Automatic update of dependencies by Kebechet
+* Revert back changes to pre-commit
+### Improvements
+* Change parameter merge to mi_merge for common
+* Remove the old one
+* Add initial structure of Request template
