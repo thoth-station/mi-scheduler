@@ -116,7 +116,7 @@ class Schedule:
         deployment_name = self.oc.infra_namespace  # mi runs in infra (submit_mi() in workflows.py in common)
         path = Path(f"{deployment_name}/thoth-sli-metrics/kebechet-update-manager/")
 
-        workflow_id = self.oc.schedule_mi_workflow(knowledge_path=path, mi_used_for_thoth=True, merge=True)
+        workflow_id = self.oc.schedule_mi_workflow(knowledge_path=path, mi_used_for_thoth=True, mi_merge=True)
         _LOGGER.info("Scheduled mi-kebechet merge with id %r", workflow_id)
 
 
