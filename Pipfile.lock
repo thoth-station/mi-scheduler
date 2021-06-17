@@ -878,11 +878,11 @@
         },
         "thoth-storages": {
             "hashes": [
-                "sha256:0b50d3595f8f99abcea5a13bad911681a867d9a42c6ae2d7c363cf2cf11638c0",
-                "sha256:23445d64273e1f34174e0749a687f8ba3e94ec333066060a17f3843b7c8f5b00"
+                "sha256:1d2ef58b68ffdf8acf04503ff07c724f8c58976b9b76936526d3fc8a8f4dc774",
+                "sha256:5d5af23ff98494aac169dd5389861f409d29d823cb8e8c5e93b2cacf84aab9db"
             ],
             "index": "pypi",
-            "version": "==0.46.0"
+            "version": "==0.47.0"
         },
         "toml": {
             "hashes": [
