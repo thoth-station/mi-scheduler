@@ -49,6 +49,7 @@ class Schedule:
         github: Optional[Github] = None,
         organizations: List[str] = None,
         repositories: List[str] = None,
+        subdir: Optional[str] = None,
     ):
         """Initialize with github, orgs and repos optional."""
         self.gh = github
@@ -59,7 +60,6 @@ class Schedule:
 
         self.checked_repos: Set[str] = set()
 
-        subdir = os.getenv("SCHEDULE_SUBDIR")
         deployment_name = self.oc.infra_namespace  # mi runs in infra (submit_mi() in workflows.py in common)
         self.kebechet_path = Path(f"{deployment_name}/{subdir}/thoth-sli-metrics/kebechet-update-manager/")
         self.mi_path = Path(f"{deployment_name}/{subdir}/mi/")
@@ -157,16 +157,18 @@ def main(
     # regular mi schedule
     if gh_repo_analysis:
         repos, orgs = oc.get_mi_repositories_and_organizations()
-        Schedule(github=gh, openshift=oc, organizations=orgs, repositories=repos).schedule_for_mi_analysis()
+        Schedule(
+            github=gh, openshift=oc, organizations=orgs, repositories=repos, subdir=subdir
+        ).schedule_for_mi_analysis()
 
     if kebechet_analysis:
         graph = GraphDatabase()
         graph.connect()
         kebechet_repos = graph.get_active_kebechet_github_installations_repos()
-        Schedule(github=gh, openshift=oc, repositories=kebechet_repos).schedule_for_kebechet_analysis()
+        Schedule(github=gh, openshift=oc, repositories=kebechet_repos, subdir=subdir).schedule_for_kebechet_analysis()
 
     if kebechet_merge:
-        Schedule(openshift=oc).schedule_for_kebechet_merge()
+        Schedule(openshift=oc, subdir=subdir).schedule_for_kebechet_merge()
 
 
 if __name__ == "__main__":
