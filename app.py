@@ -60,9 +60,9 @@ class Schedule:
 
         self.checked_repos: Set[str] = set()
 
-        deployment_name = self.oc.infra_namespace  # mi runs in infra (submit_mi() in workflows.py in common)
+        deployment_name = os.environ["THOTH_DEPLOYMENT_NAME"]
         self.kebechet_path = Path(f"{deployment_name}/{subdir}/thoth-sli-metrics/kebechet-update-manager/")
-        self.mi_path = Path(f"{deployment_name}/{subdir}/mi/")
+        self.mi_path = Path(f"{deployment_name}/mi/{subdir}")
 
         self._initialize_repositories_from_organizations()
         self._initialize_repositories_from_raw()
