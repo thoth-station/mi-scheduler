@@ -59,6 +59,11 @@ class Schedule:
 
         self.checked_repos: Set[str] = set()
 
+        subdir = os.getenv("SCHEDULE_SUBDIR")
+        deployment_name = self.oc.infra_namespace  # mi runs in infra (submit_mi() in workflows.py in common)
+        self.kebechet_path = Path(f"{deployment_name}/{subdir}/thoth-sli-metrics/kebechet-update-manager/")
+        self.mi_path = Path(f"{deployment_name}/{subdir}/mi/")
+
         self._initialize_repositories_from_organizations()
         self._initialize_repositories_from_raw()
 
@@ -98,25 +103,22 @@ class Schedule:
     def schedule_for_mi_analysis(self) -> None:
         """Schedule workflows for mi analysis."""
         for repo in self.checked_repos:
-            workflow_id = self.oc.schedule_mi_workflow(repository=repo)
+            workflow_id = self.oc.schedule_mi_workflow(repository=repo, knowledge_path=self.mi_path)
             _LOGGER.info("Scheduled mi with id %r", workflow_id)
 
     def schedule_for_kebechet_analysis(self):
         """Schedule workflows for kebechet analysis."""
-        deployment_name = self.oc.infra_namespace  # mi runs in infra (submit_mi() in workflows.py in common)
-        path = Path(f"{deployment_name}/thoth-sli-metrics/kebechet-update-manager/")
         for repo in self.checked_repos:
             workflow_id = self.oc.schedule_mi_workflow(
-                repository=repo, entities=KEBECHET_ENTITIES, knowledge_path=path, mi_used_for_thoth=True,
+                repository=repo, entities=KEBECHET_ENTITIES, knowledge_path=self.kebechet_path, mi_used_for_thoth=True,
             )
             _LOGGER.info("Scheduled mi-kebechet analysis with id %r", workflow_id)
 
     def schedule_for_kebechet_merge(self):
         """Schedule workflows for kebechet analysis."""
-        deployment_name = self.oc.infra_namespace  # mi runs in infra (submit_mi() in workflows.py in common)
-        path = Path(f"{deployment_name}/thoth-sli-metrics/kebechet-update-manager/")
-
-        workflow_id = self.oc.schedule_mi_workflow(knowledge_path=path, mi_used_for_thoth=True, mi_merge=True)
+        workflow_id = self.oc.schedule_mi_workflow(
+            knowledge_path=self.kebechet_path, mi_used_for_thoth=True, mi_merge=True
+        )
         _LOGGER.info("Scheduled mi-kebechet merge with id %r", workflow_id)
 
 
@@ -139,8 +141,14 @@ class Schedule:
     required=False,
     help="Flag for SCHEDULE_GH_REPO_ANALYSIS, used for scheduling mi workflows for mi repositories",
 )
+@click.option(
+    "--subdir", is_flag=False, required=False, help="Subdirectory ",
+)
 def main(
-    kebechet_analysis: Optional[bool], kebechet_merge: Optional[bool], gh_repo_analysis: Optional[bool],
+    kebechet_analysis: Optional[bool],
+    kebechet_merge: Optional[bool],
+    gh_repo_analysis: Optional[bool],
+    subdir: Optional[str],
 ):
     """MI-Scheduler entrypoint."""
     gh = Github(login_or_token=GITHUB_ACCESS_TOKEN)
