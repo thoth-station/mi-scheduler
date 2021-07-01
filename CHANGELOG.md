@@ -166,3 +166,15 @@
 * Change parameter merge to mi_merge for common
 * Remove the old one
 * Add initial structure of Request template
+
+## Release 1.6.0 (2021-07-01T14:06:26)
+### Features
+* :arrow_up: Automatic update of dependencies by Kebechet
+* Make subdir an optional parameter for Schedule class
+* Add subdir envvar
+* :arrow_up: Automatic update of dependencies by Kebechet
+* :arrow_up: Automatic update of dependencies by Kebechet
+* :arrow_up: Automatic update of dependencies by Kebechet
+* Remove irrelavant TODO
+### Improvements
+* Add deployment_name from envvar and component name for mi analysis
