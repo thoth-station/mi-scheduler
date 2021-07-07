@@ -148,7 +148,7 @@ def main(
     kebechet_analysis: Optional[bool],
     kebechet_merge: Optional[bool],
     gh_repo_analysis: Optional[bool],
-    subdir: Optional[str],
+    subdir: Optional[str] = "",
 ):
     """MI-Scheduler entrypoint."""
     gh = Github(login_or_token=GITHUB_ACCESS_TOKEN)
