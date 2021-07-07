@@ -178,3 +178,8 @@
 * Remove irrelavant TODO
 ### Improvements
 * Add deployment_name from envvar and component name for mi analysis
+
+## Release 1.6.1 (2021-07-07T16:46:22)
+### Features
+* Add empty string as default value for subdir
+* :arrow_up: Automatic update of dependencies by Kebechet
