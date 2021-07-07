@@ -142,13 +142,21 @@ class Schedule:
     help="Flag for SCHEDULE_GH_REPO_ANALYSIS, used for scheduling mi workflows for mi repositories",
 )
 @click.option(
-    "--subdir", is_flag=False, required=False, help="Subdirectory ",
+    "--subdir",
+    default="",
+    is_flag=False,
+    required=False,
+    help="""
+    Subdirectory for data storage. In case of regular mi data, the resulting path is then deployment_name/mi/<subdir>/
+    In case of kebechet related data, data path is deployment_name/<subdir>/.
+    """,
+    show_default=True,
 )
 def main(
     kebechet_analysis: Optional[bool],
     kebechet_merge: Optional[bool],
     gh_repo_analysis: Optional[bool],
-    subdir: Optional[str] = "",
+    subdir: Optional[str],
 ):
     """MI-Scheduler entrypoint."""
     gh = Github(login_or_token=GITHUB_ACCESS_TOKEN)
