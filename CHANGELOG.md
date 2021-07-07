@@ -183,3 +183,8 @@
 ### Features
 * Add empty string as default value for subdir
 * :arrow_up: Automatic update of dependencies by Kebechet
+
+## Release 1.6.2 (2021-07-07T19:31:25)
+### Features
+* Change default value to be within click options
+* change overlay contextpath to zero-test
