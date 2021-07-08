@@ -46,10 +46,10 @@ class Schedule:
     def __init__(
         self,
         openshift: OpenShift,
-        subdir: str = "",
         github: Optional[Github] = None,
         organizations: List[str] = None,
         repositories: List[str] = None,
+        subdir: str = "",
     ):
         """Initialize with github, orgs and repos optional."""
         self.gh = github
@@ -156,12 +156,9 @@ def main(
     kebechet_analysis: Optional[bool],
     kebechet_merge: Optional[bool],
     gh_repo_analysis: Optional[bool],
-    subdir: Optional[str],
+    subdir: str = "",
 ):
     """MI-Scheduler entrypoint."""
-    if subdir is None:
-        subdir = ""
-
     gh = Github(login_or_token=GITHUB_ACCESS_TOKEN)
     oc = OpenShift()
 
