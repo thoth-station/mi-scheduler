@@ -38,6 +38,7 @@ _LOGGER = logging.getLogger(__title__)
 GITHUB_ACCESS_TOKEN = os.getenv("GITHUB_ACCESS_TOKEN")
 
 KEBECHET_ENTITIES = "PullRequest,Issue"
+KEBECHET_KNOWLEDGE_PATH = Path("thoth-sli-metrics").joinpath("kebechet-update-manager")
 
 
 class Schedule:
@@ -61,8 +62,8 @@ class Schedule:
         self.checked_repos: Set[str] = set()
 
         deployment_name = os.environ["THOTH_DEPLOYMENT_NAME"]
-        self.kebechet_path = str(Path(f"{deployment_name}/{subdir}/thoth-sli-metrics/kebechet-update-manager/"))
-        self.mi_path = str(Path(f"{deployment_name}/mi/{subdir}"))
+        self.kebechet_path = str(Path(deployment_name).joinpath(subdir).joinpath(KEBECHET_KNOWLEDGE_PATH))
+        self.mi_path = str(Path(deployment_name).joinpath("mi").joinpath(subdir))
 
         self._initialize_repositories_from_organizations()
         self._initialize_repositories_from_raw()
