@@ -188,3 +188,12 @@
 ### Features
 * Change default value to be within click options
 * change overlay contextpath to zero-test
+
+## Release 1.6.3 (2021-07-08T12:55:50)
+### Features
+* Make deployment_name a constant
+* Create path dynamically
+* Make subdir default set to empty string
+* Make subdir default to empty string in Scheduler
+* Add subdir check
+* Convert Path object to string
