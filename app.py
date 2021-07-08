@@ -46,10 +46,10 @@ class Schedule:
     def __init__(
         self,
         openshift: OpenShift,
+        subdir: str = "",
         github: Optional[Github] = None,
         organizations: List[str] = None,
         repositories: List[str] = None,
-        subdir: Optional[str] = None,
     ):
         """Initialize with github, orgs and repos optional."""
         self.gh = github
