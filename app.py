@@ -159,6 +159,9 @@ def main(
     subdir: Optional[str],
 ):
     """MI-Scheduler entrypoint."""
+    if subdir is None:
+        subdir = ""
+
     gh = Github(login_or_token=GITHUB_ACCESS_TOKEN)
     oc = OpenShift()
 
