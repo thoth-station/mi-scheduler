@@ -197,3 +197,7 @@
 * Make subdir default to empty string in Scheduler
 * Add subdir check
 * Convert Path object to string
+
+## Release 1.6.4 (2021-07-09T13:45:49)
+### Features
+* Add mi entities extraction from envvar
