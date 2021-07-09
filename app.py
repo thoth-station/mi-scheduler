@@ -38,6 +38,8 @@ _LOGGER = logging.getLogger(__title__)
 GITHUB_ACCESS_TOKEN = os.getenv("GITHUB_ACCESS_TOKEN")
 
 KEBECHET_ENTITIES = "PullRequest,Issue"
+MI_ENTITIES = os.environ["MI_ENTITIES"]
+
 KEBECHET_KNOWLEDGE_PATH = Path("thoth-sli-metrics").joinpath("kebechet-update-manager")
 
 DEPLOYMENT_NAME = os.environ["THOTH_DEPLOYMENT_NAME"]
@@ -105,7 +107,9 @@ class Schedule:
     def schedule_for_mi_analysis(self) -> None:
         """Schedule workflows for mi analysis."""
         for repo in self.checked_repos:
-            workflow_id = self.oc.schedule_mi_workflow(repository=repo, knowledge_path=self.mi_path)
+            workflow_id = self.oc.schedule_mi_workflow(
+                repository=repo, entities=MI_ENTITIES, knowledge_path=self.mi_path
+            )
             _LOGGER.info("Scheduled mi with id %r", workflow_id)
 
     def schedule_for_kebechet_analysis(self):
