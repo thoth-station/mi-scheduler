@@ -1,3 +1,9 @@
+---
+name: Data Aggregation Request
+about: Request repository or organization data extraction
+labels: enhancement
+---
+
 ## GitHub target
 - [ ] organization
 - [ ] repository
