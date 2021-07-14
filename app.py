@@ -38,7 +38,7 @@ _LOGGER = logging.getLogger(__title__)
 GITHUB_ACCESS_TOKEN = os.getenv("GITHUB_ACCESS_TOKEN")
 
 KEBECHET_ENTITIES = "PullRequest,Issue"
-MI_ENTITIES = os.environ["MI_ENTITIES"]
+MI_ENTITIES = os.getenv("MI_ENTITIES")
 
 KEBECHET_KNOWLEDGE_PATH = Path("thoth-sli-metrics").joinpath("kebechet-update-manager")
 
