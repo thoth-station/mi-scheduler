@@ -201,3 +201,10 @@
 ## Release 1.6.4 (2021-07-09T13:45:49)
 ### Features
 * Add mi entities extraction from envvar
+
+## Release 1.6.5 (2021-07-14T09:52:52)
+### Features
+* :arrow_up: Automatic update of dependencies by Kebechet
+* Get MI_ENTITIES variable safely
+* :arrow_up: Automatic update of dependencies by Kebechet
+* :arrow_up: Automatic update of dependencies by Kebechet
