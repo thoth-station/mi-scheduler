@@ -65,7 +65,7 @@ class Schedule:
 
         self.checked_repos: Set[str] = set()
 
-        self.kebechet_path = Path(DEPLOYMENT_NAME).joinpath(subdir).joinpath(KEBECHET_KNOWLEDGE_PATH).as_posix()
+        self.kebechet_stats_path = Path(DEPLOYMENT_NAME).joinpath(subdir).joinpath(KEBECHET_KNOWLEDGE_PATH).as_posix()
         self.mi_path = Path(DEPLOYMENT_NAME).joinpath("mi").joinpath(subdir).as_posix()
 
         self._initialize_repositories_from_organizations()
@@ -116,14 +116,14 @@ class Schedule:
         """Schedule workflows for kebechet analysis."""
         for repo in self.checked_repos:
             workflow_id = self.oc.schedule_mi_workflow(
-                repository=repo, entities=KEBECHET_ENTITIES, knowledge_path=self.kebechet_path, mi_used_for_thoth=True,
+                repository=repo, entities=KEBECHET_ENTITIES, knowledge_path=self.mi_path, mi_used_for_thoth=True,
             )
             _LOGGER.info("Scheduled mi-kebechet analysis with id %r", workflow_id)
 
     def schedule_for_kebechet_merge(self):
         """Schedule workflows for kebechet analysis."""
         workflow_id = self.oc.schedule_mi_workflow(
-            knowledge_path=self.kebechet_path, mi_used_for_thoth=True, mi_merge=True
+            knowledge_path=self.mi_path, mi_used_for_thoth=True, mi_merge=True, mi_merge_path=self.kebechet_stats_path,
         )
         _LOGGER.info("Scheduled mi-kebechet merge with id %r", workflow_id)
 
