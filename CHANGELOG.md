@@ -1,4 +1,11 @@
 
+## Release 1.7.0 (2021-09-03T10:56:50)
+### Features
+* Change knowledge path to mi, add merge path for merge job
+* :arrow_up: Automatic update of dependencies by Kebechet
+* Add headered template
+* Add header to the template
+
 ## Release 0.0.1 (2020-07-14T18:23:45)
 * setup for future releases
 * include aicoe-ci configuration file (#11)
