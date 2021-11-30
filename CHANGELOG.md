@@ -1,4 +1,140 @@
 
+## Release 1.7.1 (2021-11-30T18:25:17)
+* Add merge path argument for kebechet analyse workflows
+* :arrow_up: Automatic update of dependencies by Kebechet for the ubi8 environment
+* Release of version 1.7.0
+* Change knowledge path to mi, add merge path for merge job
+* :arrow_up: Automatic update of dependencies by Kebechet
+* Add headered template
+* Add header to the template
+* Release of version 1.6.5
+* :arrow_up: Automatic update of dependencies by Kebechet
+* :arrow_up: Automatic update of dependencies by Kebechet
+* Get MI_ENTITIES variable safely
+* :arrow_up: Automatic update of dependencies by Kebechet
+* :arrow_up: Automatic update of dependencies by Kebechet
+* Release of version 1.6.4
+* Add mi entities extraction from envvar
+* Release of version 1.6.3
+* Make deployment_name a constant
+* Create path dynamically
+* Make subdir default set to empty string
+* Make subdir default to empty string in Scheduler
+* Add subdir check
+* Convert Path object to string
+* Release of version 1.6.2
+* Change default value to be within click options
+* change overlay contextpath to zero-test
+* Release of version 1.6.1
+* Add empty string as default value for subdir
+* :arrow_up: Automatic update of dependencies by Kebechet
+* Release of version 1.6.0
+* :arrow_up: Automatic update of dependencies by Kebechet
+* Add deployment_name from envvar and component name for mi analysis
+* Make subdir an optional parameter for Schedule class
+* Add subdir envvar
+* :arrow_up: Automatic update of dependencies by Kebechet
+* :arrow_up: Automatic update of dependencies by Kebechet
+* :arrow_up: Automatic update of dependencies by Kebechet
+* Release of version 1.5.1
+* Remove irrelavant TODO
+* Change parameter merge to mi_merge for common
+* Change parameter merge to mi_merge
+* :arrow_up: Automatic update of dependencies by Kebechet
+* Remove the old one
+* Move template to ISSUE_TEMPLATE directory
+* :arrow_up: Automatic update of dependencies by Kebechet
+* :arrow_up: Automatic update of dependencies by Kebechet
+* Revert back changes to pre-commit
+* Add initial structure of Request template
+* Release of version 1.5.0
+* Add description for cli flags
+* Use click envvar configuration instead of manual envvars
+* Update mypy version
+* Add mypy to dev packages
+* :hatched_chick: update the prow resource limits (#135)
+* Release of version 1.4.0 (#134)
+* :arrow_up: Automatic update of dependencies by Kebechet (#132)
+* Add merge schedule, make arguments optional in Scheduler (#131)
+* Release of version 1.3.8 (#129)
+* :arrow_up: Automatic update of dependencies by Kebechet (#127)
+* Make Kebechet entities inspection for PRs and Issues (#126)
+* :arrow_up: Automatic update of dependencies by Kebechet (#125)
+* Remove codeowners file (#124)
+* Release of version 1.3.7 (#120)
+* :arrow_up: Automatic update of dependencies by Kebechet (#118)
+* Release of version 1.3.6 (#115)
+* Fix parameter name to be consistent with common (#113)
+* Release of version 1.3.5 (#112)
+* Change additional_configuration to mi_thoth flag (#110)
+* Release of version 1.3.4 (#108)
+* Add additional_configuration parameter to kebechet (#106)
+* :arrow_up: Automatic update of dependencies by Kebechet (#104)
+* Release of version 1.3.3 (#101)
+* Fix/schedule typo (#98)
+* Release of version 1.3.2 (#97)
+* :arrow_up: Automatic update of dependencies by Kebechet (#94)
+* Add pytest and .prow.yaml (#95)
+* Use repo name correctly #repush
+* :arrow_up: Automatic update of dependencies by Kebechet (#91)
+* Release of version 1.3.1 (#90)
+* :arrow_up: Automatic update of dependencies by Kebechet (#89)
+* Fix typo (#87)
+* Release of version 1.3.0 (#86)
+* Feature/kebechet mi options (#84)
+* Release of version 1.2.0 (#83)
+* :arrow_up: Automatic update of dependencies by Kebechet (#80)
+* Add custom path for kebechet inspection (#81)
+* :arrow_up: Automatic update of dependencies by Kebechet
+* :arrow_up: Automatic update of dependencies by Kebechet (#77)
+* Release of version 1.1.2 (#75)
+* Change github objects in set to only strings (#67)
+* Release of version 1.1.1 (#69)
+* :arrow_up: Automatic update of dependencies by kebechet. (#66)
+* Release of version 1.1.0 (#65)
+* :arrow_up: Automatic update of dependencies by kebechet. (#64)
+* :arrow_up: Automatic update of dependencies by kebechet. (#62)
+* Add kebechet schedule, implement class Schedule (#58)
+* :arrow_up: Automatic update of dependencies by kebechet. (#57)
+* update .aicoe-ci.yaml (#56)
+* update thoth yaml (#55)
+* port to python 38 (#54)
+* Remove and use utitilies that are now in openshift. (#51)
+* :pushpin: Automatic update of dependency thoth-common from 0.20.0 to 0.20.4 (#53)
+* Add francesco as approver (#52)
+* :pushpin: Automatic update of dependency thoth-common from 0.16.1 to 0.20.0 (#49)
+* :pushpin: Automatic update of dependency thoth-common from 0.16.0 to 0.16.1 (#47)
+* :pushpin: Automatic update of dependency pygithub from 1.52 to 1.53 (#46)
+* Release of version 1.0.7 (#44)
+* Update dependencies (#42)
+* Release of version 1.0.6 (#41)
+* :pushpin: Automatic update of dependency thoth-common from 0.14.2 to 0.15.0 (#39)
+* Rename submit_srcopsmetrics_workflow to mi (#38)
+* Release of version 1.0.5 (#37)
+* get token from env variable (#35)
+* Release of version 1.0.4 (#33)
+* Rename to match method in thoth.common (#29)
+* Release of version 1.0.3 (#28)
+* Secure empty string lists and add logger for CM (#25)
+* Release of version 1.0.2 (#24)
+* extract data from entire cm returned by get_configmap (#22)
+* Release of version 1.0.1 (#21)
+* Required packages are locked
+* Release of version 1.0.0 (#19)
+* update the maintainer for release of application
+* Remove CLI from mi-scheduler (#14)
+* :pushpin: Automatic update of dependency thoth-common from 0.14.1 to 0.14.2 (#16)
+* Release of version 0.0.1 (#13)
+* setup for future releases
+* include aicoe-ci configuration file (#11)
+* README documentation and pre-commit configuration change (#10)
+* :pushpin: Automatic update of dependency thoth-common from 0.14.0 to 0.14.1 (#6)
+* :pushpin: Automatic update of dependency thoth-common from 0.14.0 to 0.14.1 (#5)
+* Assign Dominik to review PRs automatically (#4)
+* Log workflow id to track actions (#3)
+* Expand logged messages lazily (#2)
+* Add scheduler, configmap and pipfiles [8pt] (#1)
+
 ## Release 1.7.0 (2021-09-03T10:56:50)
 ### Features
 * Change knowledge path to mi, add merge path for merge job
