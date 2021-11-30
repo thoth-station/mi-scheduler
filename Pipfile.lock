@@ -179,19 +179,19 @@
         },
         "boto3": {
             "hashes": [
-                "sha256:879ee87037ad51317483ba175dcb982fffbc32de207e033287875b042765d750",
-                "sha256:bbf53a077d6a0575ddec8026f0475ca6ee6f41b227914bf315bf3e049a3d653a"
+                "sha256:22808328fc81937244a971f739e5f8d95acd36c8e5638787e562d504b33727be",
+                "sha256:ef44676226c21215268be5c348c50fd9a2aed876de5c19962c79d9321f10f051"
             ],
             "markers": "python_version >= '3.6'",
-            "version": "==1.20.13"
+            "version": "==1.20.16"
         },
         "botocore": {
             "hashes": [
-                "sha256:35792b2196049ef900f538cae51fb8359c940156eef187962aa9e3bd2c0b8e8c",
-                "sha256:9b9385e61058eb0e7fc43013e4b43a710c9abafa2b28c340c45978d5a65c7113"
+                "sha256:5656fd2b6aea9477d514d5ccf128d664e6ae4536ffca45a753844881dc65e0f8",
+                "sha256:c813e67c0f7d45cbff97a1047d8241f334eb386b3f81825e9e87e29d3a0c2ddf"
             ],
             "markers": "python_version >= '3.6'",
-            "version": "==1.23.13"
+            "version": "==1.23.16"
         },
         "cachetools": {
             "hashes": [
@@ -1099,11 +1099,11 @@
         },
         "thoth-common": {
             "hashes": [
-                "sha256:7f8f04d8013cfb7b41e170f46cbde683f9bb5b6db2b01d7c36a47c9d4ef29b7c",
-                "sha256:d2a8805fdaad8d304b1a6479d9460cef4c8aaa26785f900aa5adbf240e53198b"
+                "sha256:d2d4219fe9d5943b923ed847715217e4d4f52b49274f09b1d68d3658c53cf023",
+                "sha256:fcae892884f2e191d35cecbee8a01a3fbe70b6468b6d3707414e29e537a113b7"
             ],
             "index": "pypi",
-            "version": "==0.32.0"
+            "version": "==0.33.0"
         },
         "thoth-python": {
             "hashes": [
@@ -1124,11 +1124,11 @@
         },
         "thoth-storages": {
             "hashes": [
-                "sha256:677b2814581024d6a811d799ff3b4a0f18c9dba8c9a7181164f292ee83baa4fe",
-                "sha256:af75c4077549acd05f90d7370943c8ae5631cf7306a56e1cfd9f1ffa5de0506a"
+                "sha256:38c4e9a392f04c945c86a4fa9d9a5e7e1c393f5cf4415c3152589e70c1a372d2",
+                "sha256:88fb339af4f94b5a962c749151d393054819fb38b1fa7006ef5869bf47032362"
             ],
             "index": "pypi",
-            "version": "==0.59.0"
+            "version": "==0.60.0"
         },
         "toml": {
             "hashes": [
