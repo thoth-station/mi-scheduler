@@ -108,7 +108,7 @@ class Schedule:
         """Schedule workflows for mi analysis."""
         for repo in self.checked_repos:
             workflow_id = self.oc.schedule_mi_workflow(
-                repository=repo, entities=MI_ENTITIES, knowledge_path=self.mi_path
+                repository=repo, entities=MI_ENTITIES, knowledge_path=self.mi_path,
             )
             _LOGGER.info("Scheduled mi with id %r", workflow_id)
 
@@ -116,7 +116,11 @@ class Schedule:
         """Schedule workflows for kebechet analysis."""
         for repo in self.checked_repos:
             workflow_id = self.oc.schedule_mi_workflow(
-                repository=repo, entities=KEBECHET_ENTITIES, knowledge_path=self.mi_path, mi_used_for_thoth=True,
+                repository=repo,
+                entities=KEBECHET_ENTITIES,
+                knowledge_path=self.mi_path,
+                mi_used_for_thoth=True,
+                mi_merge_path=self.kebechet_stats_path,
             )
             _LOGGER.info("Scheduled mi-kebechet analysis with id %r", workflow_id)
 
