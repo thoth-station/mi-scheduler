@@ -1,4 +1,8 @@
 
+## Release 1.7.2 (2021-12-01T16:04:54)
+* Update pipfile.lock
+* :arrow_up: Automatic update of dependencies by Kebechet for the ubi8 environment
+
 ## Release 1.7.1 (2021-11-30T18:25:17)
 * Add merge path argument for kebechet analyse workflows
 * :arrow_up: Automatic update of dependencies by Kebechet for the ubi8 environment
