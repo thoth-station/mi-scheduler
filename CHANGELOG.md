@@ -1,4 +1,12 @@
 
+## Release 1.7.3 (2022-03-16T13:20:20)
+* Add create_knowledge param for GH-related workflows
+* :arrow_up: Automatic update of dependencies by Kebechet for the ubi8 environment
+* :arrow_up: Automatic update of dependencies by Kebechet for the ubi8 environment (#206)
+* :arrow_up: Automatic update of dependencies by Kebechet for the ubi8 environment (#205)
+* :arrow_up: Automatic update of dependencies by Kebechet for the ubi8 environment
+* Update pyproject.toml to use Python 3.8
+
 ## Release 1.7.2 (2021-12-01T16:04:54)
 * Update pipfile.lock
 * :arrow_up: Automatic update of dependencies by Kebechet for the ubi8 environment
