@@ -1,4 +1,17 @@
 
+## Release 1.7.4 (2022-04-05T17:47:06)
+* 6ca67eb Ignore black tests in pre-commit
+* 4015665 Temporary comment out mypy
+* dd7be98 Downgrade mypy to 0.931
+* bf77371 Make pre-commit happy
+* edf09d6 Fix pre-commit to v2.15.0
+* 1c23b57 Add pre-commit to dev-packages
+* ee33f9a Autoupdate pre-commit configuration
+* 72295b4 Update common to 0.36.1
+* 23e8e25 Update pipfile lock
+* 7521e8b :arrow_up: Automatic update of dependencies by Kebechet for the ubi8 environment
+* 11630b3 :ship: Bump up base image initialized in CI.
+
 ## Release 1.7.3 (2022-03-16T13:20:20)
 * Add create_knowledge param for GH-related workflows
 * :arrow_up: Automatic update of dependencies by Kebechet for the ubi8 environment
