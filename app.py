@@ -108,7 +108,10 @@ class Schedule:
         """Schedule workflows for mi analysis."""
         for repo in self.checked_repos:
             workflow_id = self.oc.schedule_mi_workflow(
-                create_knowledge=True, repository=repo, entities=MI_ENTITIES, knowledge_path=self.mi_path,
+                create_knowledge=True,
+                repository=repo,
+                entities=MI_ENTITIES,
+                knowledge_path=self.mi_path,
             )
             _LOGGER.info("Scheduled mi with id %r", workflow_id)
 
@@ -128,7 +131,10 @@ class Schedule:
     def schedule_for_kebechet_merge(self):
         """Schedule workflows for kebechet analysis."""
         workflow_id = self.oc.schedule_mi_workflow(
-            knowledge_path=self.mi_path, mi_used_for_thoth=True, mi_merge=True, mi_merge_path=self.kebechet_stats_path,
+            knowledge_path=self.mi_path,
+            mi_used_for_thoth=True,
+            mi_merge=True,
+            mi_merge_path=self.kebechet_stats_path,
         )
         _LOGGER.info("Scheduled mi-kebechet merge with id %r", workflow_id)
 
