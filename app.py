@@ -120,8 +120,8 @@ class Schedule:
                 repository=repo,
                 entities=KEBECHET_ENTITIES,
                 knowledge_path=self.mi_path,
-                mi_merge_path=self.kebechet_stats_path,
                 mi_used_for_thoth=True,
+                mi_metrics=True,
             )
             _LOGGER.info("Scheduled mi-kebechet analysis with id %r", workflow_id)
 
