@@ -1,4 +1,9 @@
 
+## Release 1.7.5 (2022-04-06T18:17:27)
+* 607daf4 Remove metrics param, unnecessary
+* 70ab37e Add metrics param, remove merge param
+* a2acbfb Update pre-commit prow image version to 0.14.3
+
 ## Release 1.7.4 (2022-04-05T17:47:06)
 * 6ca67eb Ignore black tests in pre-commit
 * 4015665 Temporary comment out mypy
