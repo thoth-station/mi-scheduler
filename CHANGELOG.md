@@ -1,4 +1,8 @@
 
+## Release 1.7.6 (2022-04-12T15:47:46)
+* c62c941 Update common to 0.36.2
+* 8196275 :arrow_up: Automatic update of dependencies by Kebechet for the ubi8 environment
+
 ## Release 1.7.5 (2022-04-06T18:17:27)
 * 607daf4 Remove metrics param, unnecessary
 * 70ab37e Add metrics param, remove merge param
