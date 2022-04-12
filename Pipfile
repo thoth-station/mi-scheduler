@@ -5,13 +5,13 @@ verify_ssl = true
 
 [dev-packages]
 mypy = "*"
-pre-commit = "==2.15.0"
 
 [packages]
 PyGithub = "*"
 thoth-common = "*"
 click = "*"
 thoth-storages = "*"
+pre-commit = "==2.15.0"
 
 [requires]
 python_version = "3.8"
