@@ -1,4 +1,16 @@
 
+## Release 1.7.7 (2022-10-13T19:53:57)
+* fac82a8 Remove space
+* 05c2ac2 Add debug information on kebechet repos
+* 00b14b2 :arrow_up: Automatic update of dependencies by Kebechet for the ubi8 environment
+* 7eb6d51 :arrow_up: Automatic update of dependencies by Kebechet for the ubi8 environment
+* 74ecc14 :ship: Bump up base image initialized in CI. (#241)
+* 3721318 :arrow_up: Automatic update of dependencies by Kebechet for the ubi8 environment (#244)
+* 7b7c141 :arrow_up: Automatic update of dependencies by Kebechet for the ubi8 environment (#238)
+* d3d4d43 :arrow_up: Automatic update of dependencies by Kebechet for the ubi8 environment
+* 18cd3b7 :ship: Bump up base image initialized in CI.
+* 7899117 :arrow_up: Automatic update of dependencies by Kebechet for the ubi8 environment
+
 ## Release 1.7.6 (2022-04-12T15:47:46)
 * c62c941 Update common to 0.36.2
 * 8196275 :arrow_up: Automatic update of dependencies by Kebechet for the ubi8 environment
