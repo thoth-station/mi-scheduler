@@ -189,7 +189,7 @@ def main(
         graph = GraphDatabase()
         graph.connect()
         kebechet_repos = graph.get_active_kebechet_github_installations_repos()
-         _LOGGER.debug("Got these active kebechet installation repos: %s", kebechet_repos)
+        _LOGGER.debug("Got these active kebechet installation repos: %s", kebechet_repos)
         Schedule(github=gh, openshift=oc, repositories=kebechet_repos, subdir=subdir).schedule_for_kebechet_analysis()
 
     if kebechet_merge:
