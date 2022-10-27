@@ -1,4 +1,7 @@
 
+## Release 1.7.8 (2022-10-27T15:39:58)
+* 2f48413 :arrow_up: Automatic update of dependencies by Kebechet for the ubi8 environment
+
 ## Release 1.7.7 (2022-10-13T19:53:57)
 * fac82a8 Remove space
 * 05c2ac2 Add debug information on kebechet repos
