@@ -1,4 +1,7 @@
 
+## Release 1.7.9 (2022-10-31T15:01:07)
+* 942c59e :arrow_up: Automatic update of dependencies by Kebechet for the ubi8 environment
+
 ## Release 1.7.8 (2022-10-27T15:39:58)
 * 2f48413 :arrow_up: Automatic update of dependencies by Kebechet for the ubi8 environment
 
